@@ -19,3 +19,5 @@ public void execute(String script) {
         e.printStackTrace();
     }
 }
+
+execute("@script")
