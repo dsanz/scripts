@@ -18,7 +18,7 @@ public class ScriptBuilder {
 	}
 
 	public String escape(String script) {
-		return script.replace("\"","\\\"").replace("\n","\\n").replace("\\", "\\\\");
+		return script.replace("\\", "\\\\").replace("\"","\\\"");
 	}
 
 	public void replace(String text, String replacement) {
