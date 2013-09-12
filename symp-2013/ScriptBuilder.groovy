@@ -10,7 +10,7 @@ public class ScriptBuilder {
 	}
 
 	public void append(String url) {
-		_code = _code + get(url);
+		_code = _code + "\n" + get(url);
 	}
 
 	public String get(String url) {
