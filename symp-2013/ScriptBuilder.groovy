@@ -33,6 +33,10 @@ public class ScriptBuilder {
 		System.out.print(_code);
 	}
 
+	public String getCode() {
+		return _code;
+	}
+
 	public void run() {
 		ScriptingUtil.clearCache("groovy");
 		ScriptingUtil.exec(null, null, "groovy", _code);
