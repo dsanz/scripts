@@ -1,3 +1,8 @@
-String code = new URL("https://raw.github.com/dsanz/scripts/master/symp-2013/ScriptBuilder.groovy").text
-code = code + "\n" + new URL("https://raw.github.com/dsanz/scripts/master/symp-2013/ClusterMonitor.groovy").text
-ScriptingUtil.exec(null, null, "groovy", code);
+import com.liferay.portal.kernel.scripting.ScriptingUtil;
+
+String baseURL = "https://raw.github.com/dsanz/scripts/master/symp-2013/"
+
+String scriptBuilder = new URL(baseURL + "ScriptBuilder.groovy").text
+String clusterMonitor = new URL(baseURL + "ClusterMonitor.groovy").text
+
+ScriptingUtil.exec(null, null, "groovy", scriptBuilder + "\n" + clusterMonitor);
