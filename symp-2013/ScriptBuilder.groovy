@@ -41,4 +41,17 @@ public class ScriptBuilder {
 		ScriptingUtil.clearCache("groovy");
 		ScriptingUtil.exec(null, null, "groovy", _code);
 	}
+
+	public void runCluster() {
+		try {
+			Trigger t = new IntervalTrigger("execute cluster script", "request", new Date(), new Date(), 1);
+			Message m = new Message();
+			m.put(SchedulerEngine.LANGUAGE, "groovy");
+			m.put(SchedulerEngine.SCRIPT, _code);
+			SchedulerEngineUtil.schedule(t,StorageType.MEMORY, "run now", DestinationNames.SCHEDULER_SCRIPTING, m, 0);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
