@@ -1,0 +1,3 @@
+String code = new URL("https://raw.github.com/dsanz/scripts/master/symp-2013/ScriptBuilder.groovy").text
+code = code + "\n" + new URL("https://raw.github.com/dsanz/scripts/master/symp-2013/ClusterMonitor.groovy").text
+ScriptingUtil.exec(null, null, "groovy", code);
