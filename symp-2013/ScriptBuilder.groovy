@@ -17,6 +17,10 @@ public class ScriptBuilder {
 		_baseUrl = baseURL;
 	}
 
+	public void addVariable(String name, String value) {
+		appendCode(name + " = \"" + value + "\"");
+	}
+
 	public void append(String url) {
 		appendCode(get(url));
 	}
