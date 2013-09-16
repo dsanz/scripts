@@ -14,7 +14,7 @@ Long used = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory
 Log _log = LogFactoryUtil.getLog(thisNode);
 _log.error("Running cluster monitor command")
 
-result.addResult("used", used);
+result.addResult("used", String.valueOf(used));
 
 result.done();
 
