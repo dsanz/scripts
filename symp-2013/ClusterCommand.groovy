@@ -5,10 +5,11 @@ import com.liferay.portal.kernel.cluster.ClusterExecutorUtil;
 public abstract class ClusterCommand {
 
 	private CommandResultWriter result;
+	private String thisNode;
 
 	public ClusterCommand() {
 		/* get local node address */
-		String thisNode = ClusterExecutorUtil.getLocalClusterNodeAddress().getRealAddress();
+		thisNode = ClusterExecutorUtil.getLocalClusterNodeAddress().getRealAddress();
 		result = new CommandResultWriter(thisNode);
 	}
 
