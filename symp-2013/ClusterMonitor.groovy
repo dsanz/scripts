@@ -23,6 +23,6 @@ pc.registerCacheListener(new ClusterMonitorCacheListener(ClusterExecutorUtil.get
 sbCommand = new ScriptBuilder("https://raw.github.com/dsanz/scripts/cache/symp-2013/");
 sbCommand.append("ScriptBuilder.groovy");
 sbCommand.appendCode("master=\""+  master + "\"");
-sbCommand.append("ClusterResultWriter.groovy");
+sbCommand.append("CommandResultWriter.groovy");
 sbCommand.append("ClusterMonitorCommand.groovy");
 sbCommand.runCluster();
