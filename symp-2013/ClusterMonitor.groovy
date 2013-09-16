@@ -21,16 +21,20 @@ public class ClusterMonitorCacheListener implements CacheListener {
 	List<Serializable> keys;
 
 	public ClusterMonitorCacheListener(int clusterSize) {
-		_log = LogFactoryUtil.getLog("test")
+		_log = LogFactoryUtil.getLog("ClusterMonitorCacheListener")
 		keys = new ArrayList<Serializable>();
 		_log.error("Creating ClusterMonitorCacheListener, size: " + clusterSize)
 		_expectedPuts = clusterSize;
 	}
 
 	public void notifyEntryEvicted(
-			PortalCache portalCache, Serializable key, Object value) {}
+			PortalCache portalCache, Serializable key, Object value) {
+		_log.error("notifyEntryEvicted");
+	}
 	public void notifyEntryExpired(
-			PortalCache portalCache, Serializable key, Object value) {}
+			PortalCache portalCache, Serializable key, Object value) {
+		_log.error("notifyEntryExpired");
+	}
 
 	public void notifyEntryPut(
 			PortalCache portalCache, Serializable key, Object value) {
@@ -46,13 +50,18 @@ public class ClusterMonitorCacheListener implements CacheListener {
 		}
 	}
 	public void notifyEntryRemoved(
-			PortalCache portalCache, Serializable key, Object value) {}
+			PortalCache portalCache, Serializable key, Object value) {
+		_log.error("notifyEntryRemoved");
+	}
 	public void notifyEntryUpdated(
-			PortalCache portalCache, Serializable key, Object value) {}
+			PortalCache portalCache, Serializable key, Object value) {
+		_log.error("notifyEntryUpdated");
+	}
 	public void notifyRemoveAll(PortalCache portalCache) {}
 }
 
-pc.registerCacheListener(new ClusterMonitorCacheListener(ClusterExecutorUtil.getClusterNodeAddresses().size));
+pc.registerCacheListener(new ClusterMonitorCacheListener(ClusterExecutorUtil.getClusterNodeAddresses().size()));
+
 sbCommand = new ScriptBuilder("https://raw.github.com/dsanz/scripts/cache/symp-2013/");
 sbCommand.append("ScriptBuilder.groovy");
 sbCommand.appendCode("master=\""+  master + "\"");
