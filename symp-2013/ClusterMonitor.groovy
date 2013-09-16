@@ -11,6 +11,7 @@ import java.io.Serializable;
 import com.liferay.portal.kernel.cache.CacheListener;
 
 PortalCache pc = MultiVMPoolUtil.getCache("CLUSTER_MONITOR");
+pc.removeAll();
 
 String master = ClusterExecutorUtil.getLocalClusterNodeAddress().getRealAddress();
 
