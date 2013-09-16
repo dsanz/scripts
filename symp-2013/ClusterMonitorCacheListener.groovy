@@ -29,11 +29,11 @@ public class ClusterMonitorCacheListener implements CacheListener {
 	public void notifyEntryPut(
 			PortalCache portalCache, Serializable key, Object value) {
 		keys.add(key.toString());
-		_log.error("notifyEntryPut for key: " + key + ", value: " + (Long)value);
+		_log.error("notifyEntryPut for key: " + key + ", value: " + value);
 		if (keys.size() == _expectedPuts) {
 			// process all data and create some aggregated data
 			for (String k : keys) {
-				_log.error("Recv data: " + k + " -> " + (Long)(portalCache.get(k)));
+				_log.error("Recv data: " + k + " -> " + portalCache.get(k));
 			}
 			// output it
 		}
