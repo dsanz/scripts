@@ -9,19 +9,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.io.Serializable;
 import com.liferay.portal.kernel.cache.CacheListener;
-
-PortalCache pc = MultiVMPoolUtil.getCache("CLUSTER_MONITOR");
-pc.removeAll();
-
-String master = ClusterExecutorUtil.getLocalClusterNodeAddress().getRealAddress();
+import com.liferay.portal.kernel.cache.CacheListenerScope;
 
 public class ClusterMonitorCacheListener implements CacheListener {
-	long _putsCount=0;
+	long _putsCount;
 	long _expectedPuts;
-	Log _log;;
+	Log _log;
 	List<Serializable> keys;
 
 	public ClusterMonitorCacheListener(int clusterSize) {
+		_putsCount=0
 		_log = LogFactoryUtil.getLog("ClusterMonitorCacheListener")
 		keys = new ArrayList<Serializable>();
 		_log.error("Creating ClusterMonitorCacheListener, size: " + clusterSize)
@@ -61,7 +58,10 @@ public class ClusterMonitorCacheListener implements CacheListener {
 	public void notifyRemoveAll(PortalCache portalCache) {}
 }
 
-pc.registerCacheListener(new ClusterMonitorCacheListener(ClusterExecutorUtil.getClusterNodeAddresses().size()));
+PortalCache pc = MultiVMPoolUtil.getCache("CLUSTER_MONITOR");
+pc.removeAll();
+String master = ClusterExecutorUtil.getLocalClusterNodeAddress().getRealAddress();
+pc.registerCacheListener(new ClusterMonitorCacheListener(ClusterExecutorUtil.getClusterNodeAddresses().size()), CacheListenerScope.LOCAL);
 
 sbCommand = new ScriptBuilder("https://raw.github.com/dsanz/scripts/cache/symp-2013/");
 sbCommand.append("ScriptBuilder.groovy");
