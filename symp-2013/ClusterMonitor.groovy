@@ -17,7 +17,7 @@ sbCommand.appendCode("master=\""+  master + "\"");
 sbCommand.append("ClusterMonitorCommand.groovy");
 sbCommand.runCluster();
 
-pc.registerCacheListener(new CacheListener(){
+pc.registerCacheListener(new com.liferay.portal.kernel.cache.CacheListener(){
 	long _putsCount=0;
 	long _expectedPuts=ClusterExecutorUtil.getClusterNodeAddresses().size();
 	Log _log = LogFactoryUtil.getLog("test");
