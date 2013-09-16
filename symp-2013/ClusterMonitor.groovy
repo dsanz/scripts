@@ -35,8 +35,8 @@ sbCommand.runCluster();
 while (!cl.isDone()) {
 	Thread.sleep(50);
 }
-
-out.print("<script src='https://raw.github.com/padolsey/prettyPrint.js/master/prettyprint.js'/>");
+out.print("done!<br>");
+out.print("<script src='https://raw.github.com/padolsey/prettyPrint.js/master/prettyprint.js'></script>");
 out.print("<script>");
 out.print("var r='" + cl.getResultAsString() + "'");
 out.print("var tbl = prettyPrint( r )");
