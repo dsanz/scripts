@@ -11,7 +11,7 @@ String thisNode = ClusterExecutorUtil.getLocalClusterNodeAddress().getRealAddres
 /* get monitoring info from this node */
 Long used = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
 
-Log _log = LogFactoryUtil.getLog("local");
+Log _log = LogFactoryUtil.getLog(thisNode);
 _log.error("Running cluster monitor command")
 
 PortalCache pc = MultiVMPoolUtil.getCache("CLUSTER_MONITOR");
