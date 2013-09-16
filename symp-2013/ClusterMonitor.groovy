@@ -61,7 +61,7 @@ public class ClusterMonitorCacheListener implements CacheListener {
 PortalCache pc = MultiVMPoolUtil.getCache("CLUSTER_MONITOR");
 pc.removeAll();
 String master = ClusterExecutorUtil.getLocalClusterNodeAddress().getRealAddress();
-pc.registerCacheListener(new ClusterMonitorCacheListener(ClusterExecutorUtil.getClusterNodeAddresses().size()), CacheListenerScope.LOCAL);
+pc.registerCacheListener(new ClusterMonitorCacheListener(ClusterExecutorUtil.getClusterNodeAddresses().size()), CacheListenerScope.ALL);
 
 sbCommand = new ScriptBuilder("https://raw.github.com/dsanz/scripts/cache/symp-2013/");
 sbCommand.append("ScriptBuilder.groovy");
