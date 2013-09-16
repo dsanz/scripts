@@ -19,6 +19,8 @@ pc.removeAll();
 pc.unregisterCacheListeners();
 String master = ClusterExecutorUtil.getLocalClusterNodeAddress().getRealAddress();
 
+out.print("Starting...");
+
 ClusterMonitorCacheListener cl = new ClusterMonitorCacheListener(ClusterExecutorUtil.getClusterNodeAddresses().size());
 pc.registerCacheListener(cl, CacheListenerScope.ALL);
 
@@ -34,7 +36,7 @@ while (!cl.isDone()) {
 	Thread.sleep(50);
 }
 
-out.print("<script src='https://raw.github.com/padolsey/prettyPrint.js/master/prettyprint.js'");
+out.print("<script src='https://raw.github.com/padolsey/prettyPrint.js/master/prettyprint.js'/>");
 out.print("<script>");
 out.print("var r='" + cl.getResultAsString() + "'");
 out.print("var tbl = prettyPrint( r )");
