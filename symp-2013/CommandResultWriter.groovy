@@ -22,6 +22,7 @@ public class CommandResultWriter {
 	public void done() {
 		ScriptBuilder sb = new ScriptBuilder("");
 		sb.appendCode("import com.liferay.portal.kernel.cache.PortalCache");
+		sb.appendCode("import com.liferay.portal.kernel.cache.MultiVMPoolUtil");
 		sb.appendCode("PortalCache pc = MultiVMPoolUtil.getCache(\"CLUSTER_MONITOR\");")
 		sb.appendCode("pc.put(" + _who + ", \"" + getResult().replace("\"", "\\\"") + "\");");
 		sb.runCluster();
