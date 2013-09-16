@@ -24,5 +24,6 @@ sbCommand = new ScriptBuilder("https://raw.github.com/dsanz/scripts/cache/symp-2
 sbCommand.append("ScriptBuilder.groovy");
 sbCommand.appendCode("master=\""+  master + "\"");
 sbCommand.append("CommandResultWriter.groovy");
-sbCommand.append("ClusterMonitorCommand.groovy");
+sbCommand.append("ClusterCommand.groovy");
+sbCommand.append("ClusterMonitorMemoryUsageCommand.groovy");
 sbCommand.runCluster();
