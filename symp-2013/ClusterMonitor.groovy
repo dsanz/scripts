@@ -11,12 +11,6 @@ PortalCache pc = MultiVMPoolUtil.getCache("CLUSTER_MONITOR");
 
 String master = ClusterExecutorUtil.getLocalClusterNodeAddress().getRealAddress();
 
-sbCommand = new ScriptBuilder("https://raw.github.com/dsanz/scripts/cache/symp-2013/");
-sbCommand.append("ScriptBuilder.groovy");
-sbCommand.appendCode("master=\""+  master + "\"");
-sbCommand.append("ClusterMonitorCommand.groovy");
-sbCommand.runCluster();
-
 pc.registerCacheListener(new com.liferay.portal.kernel.cache.CacheListener(){
 	long _putsCount=0;
 	long _expectedPuts=ClusterExecutorUtil.getClusterNodeAddresses().size();
@@ -49,6 +43,12 @@ pc.registerCacheListener(new com.liferay.portal.kernel.cache.CacheListener(){
 			PortalCache portalCache, Serializable key, Object value) {}
 		public void notifyRemoveAll(PortalCache portalCache) {}
 
-})
+});
+
+sbCommand = new ScriptBuilder("https://raw.github.com/dsanz/scripts/cache/symp-2013/");
+sbCommand.append("ScriptBuilder.groovy");
+sbCommand.appendCode("master=\""+  master + "\"");
+sbCommand.append("ClusterMonitorCommand.groovy");
+sbCommand.runCluster();
 
 
