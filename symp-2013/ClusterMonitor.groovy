@@ -37,7 +37,7 @@ public class ClusterMonitorCacheListener implements CacheListener {
 	public void notifyEntryPut(
 			PortalCache portalCache, Serializable key, Object value) {
 		keys.add(key.toString());
-		_log.error("notifyEntryPut for key: " + key);
+		_log.error("notifyEntryPut for key: " + key + ", value: " + (Long)value);
 		if (keys.size() == _expectedPuts) {
 			// process all data and create some aggregated data
 			for (String k : keys) {
@@ -48,12 +48,12 @@ public class ClusterMonitorCacheListener implements CacheListener {
 	}
 	public void notifyEntryRemoved(
 			PortalCache portalCache, Serializable key, Object value) {
-		_log.error("notifyEntryRemoved for key: " + key);
+		_log.error("notifyEntryRemoved for key: " + key + ", value: " + (Long)value);
 		keys.remove(key.toString());
 	}
 	public void notifyEntryUpdated(
 			PortalCache portalCache, Serializable key, Object value) {
-		_log.error("notifyEntryUpdated for key: " + key);
+		_log.error("notifyEntryUpdated for key: " + key + ", value: " + (Long)value);
 	}
 	public void notifyRemoveAll(PortalCache portalCache) {}
 }
@@ -69,5 +69,3 @@ sbCommand.append("ScriptBuilder.groovy");
 sbCommand.appendCode("master=\""+  master + "\"");
 sbCommand.append("ClusterMonitorCommand.groovy");
 sbCommand.runCluster();
-
-
