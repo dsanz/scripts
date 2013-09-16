@@ -4,6 +4,8 @@ import com.liferay.portal.kernel.cache.MultiVMPoolUtil;
 import com.liferay.portal.kernel.cache.PortalCache
 import com.liferay.portal.kernel.log.Log
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.cluster.ClusterExecutorUtil;
+
 
 import java.util.HashSet;
 import java.util.Set;
