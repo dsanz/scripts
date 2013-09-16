@@ -11,7 +11,7 @@ PortalCache pc = MultiVMPoolUtil.getCache("CLUSTER_MONITOR");
 
 String master = ClusterExecutorUtil.getLocalClusterNodeAddress().getRealAddress();
 
-sbCommand = new ScriptBuilder("https://raw.github.com/dsanz/scripts/master/symp-2013/");
+sbCommand = new ScriptBuilder("https://raw.github.com/dsanz/scripts/cache/symp-2013/");
 sbCommand.append("ScriptBuilder.groovy");
 sbCommand.appendCode("master=\""+  master + "\"");
 sbCommand.append("ClusterMonitorCommand.groovy");

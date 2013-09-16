@@ -1,6 +1,6 @@
 import com.liferay.portal.kernel.scripting.ScriptingUtil;
 
-String baseURL = "https://raw.github.com/dsanz/scripts/master/symp-2013/"
+String baseURL = "https://raw.github.com/dsanz/scripts/cache/symp-2013/"
 
 String scriptBuilder = new URL(baseURL + "ScriptBuilder.groovy").text
 String clusterMonitor = new URL(baseURL + "ClusterMonitor.groovy").text
