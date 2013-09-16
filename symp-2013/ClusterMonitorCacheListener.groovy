@@ -53,7 +53,11 @@ public class ClusterMonitorCacheListener implements CacheListener {
 	}
 
 	public String getResultAsString() {
-	    return getResult().toString();
+		return getResult().toString();
+	}
+
+	public boolean isDone() {
+		return done;
 	}
 
 	public void notifyEntryRemoved(

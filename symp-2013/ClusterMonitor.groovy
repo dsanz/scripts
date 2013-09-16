@@ -30,7 +30,7 @@ sbCommand.append("ClusterCommand.groovy");
 sbCommand.append("ClusterMonitorMemoryUsageCommand.groovy");
 sbCommand.runCluster();
 
-while (!cl.done()) {
+while (!cl.isDone()) {
 	Thread.sleep(50);
 }
 
