@@ -23,7 +23,7 @@ public class CommandResultWriter {
 	public void done() {
 		ScriptBuilder sb = new ScriptBuilder("");
 		sb.appendCode("PortalCache pc = MultiVMPoolUtil.getCache(\"CLUSTER_MONITOR\");")
-		sb.appendCode("pc.put(" + _who + ", " + getResult().replace("\"", "\\\"") + ");");
+		sb.appendCode("pc.put(" + _who + ", \"" + getResult().replace("\"", "\\\"") + "\");");
 		sb.runCluster();
 	}
 }
