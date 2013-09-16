@@ -17,5 +17,5 @@ _log.error("Running cluster monitor command")
 PortalCache pc = MultiVMPoolUtil.getCache("CLUSTER_MONITOR");
 
 pc.put(thisNode, used);
-pc.remove(thisNode, used);
+pc.put(thisNode, used);
 
