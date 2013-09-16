@@ -1,6 +1,6 @@
 import com.liferay.portal.kernel.json.JSONFactoryUtil
 import com.liferay.portal.kernel.json.JSONObject
-
+import com.liferay.portal.kernel.cache.PortalCache
 
 public class CommandResultWriter {
 	private String _who;
