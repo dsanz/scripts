@@ -36,10 +36,10 @@ while (!cl.isDone()) {
 	Thread.sleep(50);
 }
 out.print("done!<br>");
-out.print("<script src='https://raw.github.com/padolsey/prettyPrint.js/master/prettyprint.js'></script>");
-out.print("<script>");
-out.print("var r='" + cl.getResultAsString() + "'");
-out.print("var tbl = prettyPrint( r )");
-out.print("document.body.appendChild(tbl);");
-out.print("</script>");
+out.println("<script src='https://raw.github.com/padolsey/prettyPrint.js/master/prettyprint.js'></script>");
+out.println("<script type='text/javascript'>");
+out.println("var r='" + cl.getResultAsString() + "';");
+out.println("var tbl = prettyPrint(r);");
+out.println("document.body.appendChild(tbl);");
+out.println("</script>");
 
