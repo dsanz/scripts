@@ -1,4 +1,6 @@
-import com.liferay.portal.kernel.cache.PortalCache;
+import com.liferay.portal.kernel.cache.PortalCache
+import com.liferay.portal.kernel.json.JSONFactoryUtil
+import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.cache.CacheListener;
@@ -9,6 +11,8 @@ public class ClusterMonitorCacheListener implements CacheListener {
 	long _expectedPuts;
 	Log _log;
 	Set<String> keys;
+	private boolean done=false;
+	private Map<String, String> _result;
 
 	public ClusterMonitorCacheListener(int clusterSize) {
 		_log = LogFactoryUtil.getLog("ClusterMonitorCacheListener")
@@ -33,11 +37,25 @@ public class ClusterMonitorCacheListener implements CacheListener {
 		if (keys.size() == _expectedPuts) {
 			// process all data and create some aggregated data
 			for (String k : keys) {
+				_result.put(k, portalCache.get(k));
 				_log.error("Recv data: " + k + " -> " + portalCache.get(k));
 			}
-			// output it
+			done=true;
 		}
 	}
+
+	public JSONObject getResult() {
+		JSONObject result = JSONFactoryUtil.createJSONObject();
+		for (String k : keys) {
+			result.put(k, JSONFactoryUtil.createJSONObject(_result.get(k)))
+		}
+		return result;
+	}
+
+	public String getResultAsString() {
+	    return getResult().toString();
+	}
+
 	public void notifyEntryRemoved(
 			PortalCache portalCache, Serializable key, Object value) {
 		_log.error("notifyEntryRemoved for key: " + key + ", value: " + (Long)value);
