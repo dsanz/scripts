@@ -13,6 +13,8 @@ public class ScriptBuilder {
 
 	public ScriptBuilder(String baseURL) {
 		_baseUrl = baseURL;
+		appendCode("import com.liferay.portal.kernel.scripting.ScriptingUtil;");
+		appendCode("ScriptingUtil.clearCache(\"groovy\");");
 	}
 
 	public void addVariable(String name, String value) {
