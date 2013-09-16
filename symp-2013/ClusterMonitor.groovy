@@ -5,8 +5,8 @@ import com.liferay.portal.kernel.cache.PortalCache
 import com.liferay.portal.kernel.log.Log
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.io.Serializable;
 import com.liferay.portal.kernel.cache.CacheListener;
 import com.liferay.portal.kernel.cache.CacheListenerScope;
@@ -15,12 +15,12 @@ public class ClusterMonitorCacheListener implements CacheListener {
 	long _putsCount;
 	long _expectedPuts;
 	Log _log;
-	List<Serializable> keys;
+	Set<String> keys;
 
 	public ClusterMonitorCacheListener(int clusterSize) {
 		_putsCount=0
 		_log = LogFactoryUtil.getLog("ClusterMonitorCacheListener")
-		keys = new ArrayList<Serializable>();
+		keys = new HashSet<String>();
 		_log.error("Creating ClusterMonitorCacheListener, size: " + clusterSize)
 		_expectedPuts = clusterSize;
 	}
@@ -38,7 +38,7 @@ public class ClusterMonitorCacheListener implements CacheListener {
 			PortalCache portalCache, Serializable key, Object value) {
 		_putsCount++;
 		_log.error("np " + _putsCount);
-		keys.add(key);
+		keys.add(key.toString());
 		if (_putsCount == _expectedPuts) {
 			// process all data and create some aggregated data
 			for (String k : keys) {
@@ -49,17 +49,19 @@ public class ClusterMonitorCacheListener implements CacheListener {
 	}
 	public void notifyEntryRemoved(
 			PortalCache portalCache, Serializable key, Object value) {
-		_log.error("notifyEntryRemoved");
+		_log.error("notifyEntryRemoved for key: " + key);
+		keys.remove(key.toString());
 	}
 	public void notifyEntryUpdated(
 			PortalCache portalCache, Serializable key, Object value) {
-		_log.error("notifyEntryUpdated");
+		_log.error("notifyEntryUpdated for key: " + key);
 	}
 	public void notifyRemoveAll(PortalCache portalCache) {}
 }
 
 PortalCache pc = MultiVMPoolUtil.getCache("CLUSTER_MONITOR");
 pc.removeAll();
+pc.unregisterCacheListeners();
 String master = ClusterExecutorUtil.getLocalClusterNodeAddress().getRealAddress();
 pc.registerCacheListener(new ClusterMonitorCacheListener(ClusterExecutorUtil.getClusterNodeAddresses().size()), CacheListenerScope.ALL);
 
