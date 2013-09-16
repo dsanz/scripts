@@ -56,7 +56,7 @@ public class ClusterMonitorCacheListener implements CacheListener {
 	}
 
 	public String getResultAsString() {
-		return getResult().toString();
+		return getResult().toString().replace("\\\"", "\"");
 	}
 
 	public boolean isDone() {
