@@ -12,13 +12,11 @@ import com.liferay.portal.kernel.cache.CacheListener;
 import com.liferay.portal.kernel.cache.CacheListenerScope;
 
 public class ClusterMonitorCacheListener implements CacheListener {
-	long _putsCount;
 	long _expectedPuts;
 	Log _log;
 	Set<String> keys;
 
 	public ClusterMonitorCacheListener(int clusterSize) {
-		_putsCount=0
 		_log = LogFactoryUtil.getLog("ClusterMonitorCacheListener")
 		keys = new HashSet<String>();
 		_log.error("Creating ClusterMonitorCacheListener, size: " + clusterSize)
@@ -36,10 +34,9 @@ public class ClusterMonitorCacheListener implements CacheListener {
 
 	public void notifyEntryPut(
 			PortalCache portalCache, Serializable key, Object value) {
-		_putsCount++;
-		_log.error("np " + _putsCount);
 		keys.add(key.toString());
-		if (_putsCount == _expectedPuts) {
+		_log.error("notifyEntryPut for key: " + key);
+		if (keys.size() == _expectedPuts) {
 			// process all data and create some aggregated data
 			for (String k : keys) {
 				_log.error("Recv data: " + k + " -> " + (Long)(portalCache.get(k)));
