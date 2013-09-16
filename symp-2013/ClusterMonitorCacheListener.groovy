@@ -6,6 +6,8 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.cache.CacheListener;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ClusterMonitorCacheListener implements CacheListener {
 	long _expectedPuts;
@@ -19,6 +21,7 @@ public class ClusterMonitorCacheListener implements CacheListener {
 		keys = new HashSet<String>();
 		_log.error("Creating ClusterMonitorCacheListener, size: " + clusterSize)
 		_expectedPuts = clusterSize;
+		_result = new HashMap<String, String>();
 	}
 
 	public void notifyEntryEvicted(
