@@ -1,4 +1,4 @@
-public class ClusterMonitorMemoryUsageCommand extends ClusterCommand() {
+public class ClusterMonitorMemoryUsageCommand extends ClusterCommand {
 	public ClusterMonitorMemoryUsageCommand() {
 		super();
 	}
