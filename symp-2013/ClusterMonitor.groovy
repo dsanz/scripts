@@ -39,7 +39,7 @@ public class ClusterMonitorCacheListener implements CacheListener {
 		_putsCount++;
 		_log.error("np " + _putsCount);
 		keys.add(key);
-		if (putsCount == _expectedPuts) {
+		if (_putsCount == _expectedPuts) {
 			// process all data and create some aggregated data
 			for (String k : keys) {
 				_log.error("Recv data: " + k + " -> " + (Long)(portalCache.get(k)));
