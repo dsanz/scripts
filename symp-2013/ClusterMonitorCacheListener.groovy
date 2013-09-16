@@ -62,12 +62,12 @@ public class ClusterMonitorCacheListener implements CacheListener {
 
 	public void notifyEntryRemoved(
 			PortalCache portalCache, Serializable key, Object value) {
-		_log.error("notifyEntryRemoved for key: " + key + ", value: " + (Long)value);
+		_log.error("notifyEntryRemoved for key: " + key + ", value: " + value);
 		keys.remove(key.toString());
 	}
 	public void notifyEntryUpdated(
 			PortalCache portalCache, Serializable key, Object value) {
-		_log.error("notifyEntryUpdated for key: " + key + ", value: " + (Long)value);
+		_log.error("notifyEntryUpdated for key: " + key + ", value: " + value);
 	}
 	public void notifyRemoveAll(PortalCache portalCache) {}
 }
