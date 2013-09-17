@@ -21,7 +21,7 @@ String master = ClusterExecutorUtil.getLocalClusterNodeAddress().getRealAddress(
 
 out.print("Starting...");
 
-ClusterMonitorCacheListener cl = new ClusterMonitorCacheListener(ClusterExecutorUtil.getClusterNodeAddresses().size()*2);
+ClusterMonitorCacheListener cl = new ClusterMonitorCacheListener(ClusterExecutorUtil.getClusterNodeAddresses().size(), 2);
 pc.registerCacheListener(cl, CacheListenerScope.ALL);
 
 sbCommand = new ScriptBuilder("https://raw.github.com/dsanz/scripts/cache/symp-2013/");
