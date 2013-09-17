@@ -8,7 +8,7 @@ public class CommandResultWriter {
 	JSONObject payload;
 
 	public CommandResultWriter(String key) {
-		_who = ClusterExecutorUtil.getLocalClusterNodeAddress().getRealAddress() + "@" + key;
+		_who = ClusterExecutorUtil.getLocalClusterNodeAddress().getRealAddress() + "!" + key;
 		result = JSONFactoryUtil.createJSONObject();
 		payload = JSONFactoryUtil.createJSONObject();
 		result.put(key, payload);

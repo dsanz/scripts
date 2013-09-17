@@ -51,7 +51,7 @@ public class ClusterMonitorCacheListener implements CacheListener {
 	public JSONObject getResult() {
 		JSONObject result = JSONFactoryUtil.createJSONObject();
 		for (String k : keys) {
-			String[] parts = StringUtil.split(k, "@");
+			String[] parts = StringUtil.split(k, '!');
 			String node = parts[0];
 			String command = parts[1];
 			if (!result.has(command)) {
