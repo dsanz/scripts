@@ -6,11 +6,13 @@ public abstract class ClusterCommand {
 
 	private CommandResultWriter result;
 	private String thisNode;
+	private String commandName;
 
-	public ClusterCommand() {
+	public ClusterCommand(String commandName) {
 		/* get local node address */
 		thisNode = ClusterExecutorUtil.getLocalClusterNodeAddress().getRealAddress();
-		result = new CommandResultWriter(thisNode);
+		result = new CommandResultWriter(commandName + "(" + thisNode + ")");
+		this.commandName = commandName;
 	}
 
 	public abstract void execute();
@@ -20,7 +22,7 @@ public abstract class ClusterCommand {
 	}
 
 	public void run() {
-		Log _log = LogFactoryUtil.getLog(thisNode);
+		Log _log = LogFactoryUtil.getLog(commandName + "(" + thisNode + ")");
 		_log.error("Running cluster monitor command")
 		execute();
 		result.done();
