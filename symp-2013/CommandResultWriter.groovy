@@ -10,7 +10,6 @@ public class CommandResultWriter {
 	public CommandResultWriter(String command) {
 		String thisNode = ClusterExecutorUtil.getLocalClusterNodeAddress().getRealAddress();
 		_cacheKey = thisNode + "!" + command;
-		System.out.println("Cacke KEY: " + _cacheKey);
 		_result = JSONFactoryUtil.createJSONObject();
 		_payload = JSONFactoryUtil.createJSONObject();
 		_result.put(command, _payload);
