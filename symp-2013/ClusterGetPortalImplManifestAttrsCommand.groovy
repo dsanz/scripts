@@ -8,7 +8,7 @@ public class ClusterGetPortalImplManifestAttrsCommand extends ClusterCommand {
 	public String PORTAL_LIB_PATH =  PORTAL_LIB_NAME + ".jar";
 
 	public void execute() {
-		File portalImplManifest = new File(PortalUtil.getPortalLibDir() +
+		File portalImplManifest = new File(PortalUtil.getPortalLibDir() + "/" +
 			PORTAL_LIB_PATH + "/META-INF/MANIFEST.MF");
 
 		FileInputStream fis = null;
