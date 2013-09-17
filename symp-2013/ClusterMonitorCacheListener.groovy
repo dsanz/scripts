@@ -58,8 +58,8 @@ public class ClusterMonitorCacheListener implements CacheListener {
 				result.put(command, JSONFactoryUtil.createJSONObject())
 			}
 			JSONObject resultPerCommand = result.getJSONObject(command);
-			JSONObject resultPerCommandPerNode = _result.get(k).get(command);
-			resultPerCommand.put(node, resultPerCommandPerNode)
+			JSONObject resultPerCommandPerNode = JSONFactoryUtil.createJSONObject(_result.get(k));
+			resultPerCommand.put(node, resultPerCommandPerNode.getJSONObject(command));
 		}
 		return result;
 	}
