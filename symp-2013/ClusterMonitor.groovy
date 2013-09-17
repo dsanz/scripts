@@ -30,7 +30,7 @@ sbCommand.appendCode("master=\""+  master + "\"");
 sbCommand.append("CommandResultWriter.groovy");
 sbCommand.append("ClusterCommand.groovy");
 sbCommand.append("ClusterMonitorMemoryUsageCommand.groovy");
-sbCommand.append("ClusterGetPortalImplsManifestAttrsCommand.groovy");
+sbCommand.append("ClusterGetPortalImplManifestAttrsCommand.groovy");
 sbCommand.runCluster();
 
 while (!cl.isDone()) {
