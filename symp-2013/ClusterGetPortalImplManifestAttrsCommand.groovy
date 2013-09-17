@@ -22,7 +22,7 @@ public class ClusterGetPortalImplManifestAttrsCommand extends ClusterCommand {
 			fis = new FileInputStream(portalImplManifest);
 			Attributes attributes = new Manifest(fis).getMainAttributes();
 			for (String attrName : attributes.keySet()) {
-				addResult(attrName, attributes.getValue(attrName));
+				addResult((String)attrName, attributes.getValue(attrName));
 			}
 		}
 		finally {
