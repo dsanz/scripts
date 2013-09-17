@@ -16,11 +16,11 @@ public class ClusterMonitorCacheListener implements CacheListener {
 	private boolean done=false;
 	private Map<String, String> _result;
 
-	public ClusterMonitorCacheListener(int clusterSize) {
+	public ClusterMonitorCacheListener(int clusterSize, int numberOfCommands) {
 		_log = LogFactoryUtil.getLog("ClusterMonitorCacheListener")
 		keys = new HashSet<String>();
-		_log.error("Creating ClusterMonitorCacheListener, size: " + clusterSize)
-		_expectedPuts = clusterSize;
+		_expectedPuts = clusterSize*numberOfCommands;
+		_log.error("Creating ClusterMonitorCacheListener, size: " + _expectedPuts)
 		_result = new HashMap<String, String>();
 	}
 
