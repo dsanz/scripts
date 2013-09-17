@@ -1,6 +1,6 @@
 public class ClusterMonitorMemoryUsageCommand extends ClusterCommand {
 	public ClusterMonitorMemoryUsageCommand() {
-		super(this.getClass().getName());
+		super("ClusterMonitorMemoryUsageCommand");
 	}
 
 	public void execute() {

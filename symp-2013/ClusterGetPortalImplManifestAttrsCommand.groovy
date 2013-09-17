@@ -2,13 +2,14 @@ import java.util.jar.Attributes
 import de.schlichtherle.io.File;
 import de.schlichtherle.io.FileInputStream;
 import java.util.jar.Manifest
+import com.liferasy.portal.util.PortalUtil;
 
 public class ClusterGetPortalImplManifestAttrsCommand extends ClusterCommand {
 	public String PORTAL_LIB_NAME = "portal-impl";
 	public String PORTAL_LIB_PATH =  PORTAL_LIB_NAME + ".jar";
 
 	public ClusterGetPortalImplManifestAttrsCommand() {
-		super(this.getClass().getName());
+		super("ClusterGetPortalImplManifestAttrsCommand");
 	}
 
 	public void execute() {
