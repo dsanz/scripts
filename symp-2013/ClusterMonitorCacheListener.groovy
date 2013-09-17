@@ -4,6 +4,7 @@ import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.cache.CacheListener;
+import com.liferay.portal.kernel.util.StringUtil;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.HashMap;
@@ -50,7 +51,15 @@ public class ClusterMonitorCacheListener implements CacheListener {
 	public JSONObject getResult() {
 		JSONObject result = JSONFactoryUtil.createJSONObject();
 		for (String k : keys) {
-			result.put(k, JSONFactoryUtil.createJSONObject(_result.get(k)))
+			String[] parts = StringUtil.split(k, "@");
+			String node = parts[0];
+			String command = parts[1];
+			if (!result.has(command)) {
+				result.put(command,JSONFactoryUtil.createJSONObject())
+			}
+			JSONObject resultPerNode = result.getJSONObject(command);
+
+			resultPerNode.put(node, JSONFactoryUtil.createJSONObject(_result.get(k)))
 		}
 		return result;
 	}

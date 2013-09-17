@@ -1,18 +1,21 @@
+import com.liferay.portal.kernel.cluster.ClusterExecutorUtil
 import com.liferay.portal.kernel.json.JSONFactoryUtil
 import com.liferay.portal.kernel.json.JSONObject
 
 public class CommandResultWriter {
 	private String _who;
 	JSONObject result;
+	JSONObject payload;
 
-	public CommandResultWriter(String who) {
-		_who = who;
+	public CommandResultWriter(String key) {
+		_who = ClusterExecutorUtil.getLocalClusterNodeAddress().getRealAddress() + "@" + key;
 		result = JSONFactoryUtil.createJSONObject();
-		addResult("executor", _who)
+		payload = JSONFactoryUtil.createJSONObject();
+		result.put(key, payload);
 	}
 
 	public addResult(String key, String value) {
-		result.put(key, value);
+		payload.put(key, value);
 	}
 
 	public String getResult() {

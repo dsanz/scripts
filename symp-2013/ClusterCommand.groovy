@@ -11,7 +11,7 @@ public abstract class ClusterCommand {
 	public ClusterCommand(String commandName) {
 		/* get local node address */
 		thisNode = ClusterExecutorUtil.getLocalClusterNodeAddress().getRealAddress();
-		result = new CommandResultWriter(commandName + "(" + thisNode + ")");
+		result = new CommandResultWriter(commandName);
 		this.commandName = commandName;
 	}
 
