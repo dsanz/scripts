@@ -5,8 +5,6 @@ import com.liferay.portal.kernel.scheduler.SchedulerEngine;
 import com.liferay.portal.kernel.messaging.DestinationNames;
 import com.liferay.portal.kernel.messaging.Message;
 import com.liferay.portal.kernel.scheduler.IntervalTrigger;
-import com.liferay.portal.kernel.cluster.ClusterExecutorUtil;
-import com.liferay.portal.kernel.cluster.ClusterExecutorUtil;
 import com.liferay.portal.kernel.scripting.ScriptingUtil;
 
 public class ScriptBuilder {
@@ -15,6 +13,8 @@ public class ScriptBuilder {
 
 	public ScriptBuilder(String baseURL) {
 		_baseUrl = baseURL;
+		appendCode("import com.liferay.portal.kernel.scripting.ScriptingUtil;");
+		appendCode("ScriptingUtil.clearCache(\"groovy\");");
 	}
 
 	public void addVariable(String name, String value) {
