@@ -1,3 +1,4 @@
+import com.liferay.portal.kernel.cluster.ClusterExecutorUtil
 import com.liferay.portal.kernel.scheduler.Trigger;
 import com.liferay.portal.kernel.scheduler.StorageType;
 import com.liferay.portal.kernel.scheduler.SchedulerEngineUtil;
@@ -11,7 +12,6 @@ public class ScriptBuilder {
 	private String _code = "";
 	private String _baseUrl;
 	private boolean _isCluster;
-	private int _commandId;
 
 	public ScriptBuilder(String baseURL, boolean isCluster) {
 		_baseUrl = baseURL;
@@ -19,6 +19,12 @@ public class ScriptBuilder {
 		_commandId = 0;
 		appendCode("import com.liferay.portal.kernel.scripting.ScriptingUtil;");
 		appendCode("ScriptingUtil.clearCache(\"groovy\");");
+
+		if (_isCluster) {
+			String master =
+				ClusterExecutorUtil.getLocalClusterNodeAddress().getRealAddress();
+			appendCode("master=\""+  master + "\"");
+		}
 	}
 
 	public void addVariable(String name, String value) {
@@ -31,18 +37,6 @@ public class ScriptBuilder {
 
 	public void appendCode(String script) {
 		_code = _code + (_code.length() == 0 ? "" : "\n") + script;
-	}
-
-	public void appendCommand(String url, String className) {
-		// add command class definition
-		append(url)
-		// create command variable name
-		_commandId++;
-		String id="command_"+_commandId;
-		// add code to create an object for the command
-		appendCode("Command " + id + " = new " + className + "(" + _isCluster + ")");
-		// add code to run the command
-		appendCode(id + ".run()");
 	}
 
 	public String get(String url) {
@@ -61,6 +55,10 @@ public class ScriptBuilder {
 		return get(url).replace(text, replacement);
 	}
 
+	public boolean isCluster() {
+		return _isCluster;
+	}
+
 	public void echo() {
 		System.out.print(_code);
 	}
@@ -76,7 +74,7 @@ public class ScriptBuilder {
 
 	private void runCluster() {
 		try {
-		Trigger t = new IntervalTrigger("execute cluster script", "request", new Date(), new Date(), 1);
+			Trigger t = new IntervalTrigger("execute cluster script", "request", new Date(), new Date(), 1);
 			Message m = new Message();
 			m.put(SchedulerEngine.LANGUAGE, "groovy");
 			m.put(SchedulerEngine.SCRIPT, _code);
