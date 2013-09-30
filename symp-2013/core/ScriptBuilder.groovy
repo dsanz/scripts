@@ -10,9 +10,11 @@ import com.liferay.portal.kernel.scripting.ScriptingUtil;
 public class ScriptBuilder {
 	private String _code = "";
 	private String _baseUrl;
+	private boolean _isCluster;
 
-	public ScriptBuilder(String baseURL) {
+	public ScriptBuilder(String baseURL, boolean isCluster) {
 		_baseUrl = baseURL;
+		_isCluster = isCluster;
 		appendCode("import com.liferay.portal.kernel.scripting.ScriptingUtil;");
 		appendCode("ScriptingUtil.clearCache(\"groovy\");");
 	}
@@ -53,14 +55,14 @@ public class ScriptBuilder {
 		return _code;
 	}
 
-	public void run() {
+	private void run() {
 		ScriptingUtil.clearCache("groovy");
 		ScriptingUtil.exec(null, null, "groovy", _code);
 	}
 
-	public void runCluster() {
+	private void runCluster() {
 		try {
-			Trigger t = new IntervalTrigger("execute cluster script", "request", new Date(), new Date(), 1);
+		Trigger t = new IntervalTrigger("execute cluster script", "request", new Date(), new Date(), 1);
 			Message m = new Message();
 			m.put(SchedulerEngine.LANGUAGE, "groovy");
 			m.put(SchedulerEngine.SCRIPT, _code);
@@ -68,6 +70,15 @@ public class ScriptBuilder {
 		}
 		catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+
+	public void start() {
+		if (_isCluster) {
+			runCluster()
+		}
+		else {
+			run();
 		}
 	}
 }
