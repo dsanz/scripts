@@ -28,9 +28,9 @@ sbCommand = new ScriptBuilder("https://raw.github.com/dsanz/scripts/cache/symp-2
 sbCommand.append("ScriptBuilder.groovy");
 sbCommand.appendCode("master=\""+  master + "\"");
 sbCommand.append("ClusterCommandResultWriter.groovy");
-sbCommand.append("ClusterCommand.groovy");
-sbCommand.append("ClusterMonitorMemoryUsageCommand.groovy");
-sbCommand.append("ClusterGetPortalImplManifestAttrsCommand.groovy");
+sbCommand.append("Command.groovy");
+sbCommand.append("MonitorMemoryUsageCommand.groovy");
+sbCommand.append("GetPortalImplManifestAttrsCommand.groovy");
 sbCommand.runCluster();
 
 while (!cl.isDone()) {

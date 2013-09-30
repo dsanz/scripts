@@ -1,6 +1,6 @@
-public class ClusterMonitorMemoryUsageCommand extends ClusterCommand {
+public class MonitorMemoryUsageCommand extends ClusterCommand {
 
-	public ClusterMonitorMemoryUsageCommand(boolean isCluster) {
+	public MonitorMemoryUsageCommand(boolean isCluster) {
 		super("MemoryUsage", isCluster);
 	}
 
@@ -12,4 +12,4 @@ public class ClusterMonitorMemoryUsageCommand extends ClusterCommand {
 	}
 }
 
-new ClusterMonitorMemoryUsageCommand().run();
+new MonitorMemoryUsageCommand().run();

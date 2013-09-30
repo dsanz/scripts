@@ -4,11 +4,11 @@ import de.schlichtherle.io.FileInputStream;
 import java.util.jar.Manifest
 import com.liferay.portal.util.PortalUtil;
 
-public class ClusterGetPortalImplManifestAttrsCommand extends ClusterCommand {
+public class GetPortalImplManifestAttrsCommand extends ClusterCommand {
 	public String PORTAL_LIB_NAME = "portal-impl";
 	public String PORTAL_LIB_PATH =  PORTAL_LIB_NAME + ".jar";
 
-	public ClusterGetPortalImplManifestAttrsCommand(boolean isCluster) {
+	public GetPortalImplManifestAttrsCommand(boolean isCluster) {
 		super("portal-impl_MF_Attrs", isCluster);
 	}
 
