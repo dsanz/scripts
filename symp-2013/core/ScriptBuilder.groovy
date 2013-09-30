@@ -11,10 +11,12 @@ public class ScriptBuilder {
 	private String _code = "";
 	private String _baseUrl;
 	private boolean _isCluster;
+	private int _commandId;
 
 	public ScriptBuilder(String baseURL, boolean isCluster) {
 		_baseUrl = baseURL;
 		_isCluster = isCluster;
+		_commandId = 0;
 		appendCode("import com.liferay.portal.kernel.scripting.ScriptingUtil;");
 		appendCode("ScriptingUtil.clearCache(\"groovy\");");
 	}
@@ -29,6 +31,19 @@ public class ScriptBuilder {
 
 	public void appendCode(String script) {
 		_code = _code + (_code.length() == 0 ? "" : "\n") + script;
+	}
+
+	public void appendCommand(String url, String className, String commandName) {
+		// add command class definition
+		append(url)
+		// create command variable name
+		_commandId++;
+		String id="command_"+_commandId;
+		// add code to create an object for the command
+		appendCode("Command " + id + " = new " + className + "(" +
+			commandName + ", " + _isCluster + ")");
+		// add code to run the command
+		appendCode(id + ".run()");
 	}
 
 	public String get(String url) {
