@@ -24,14 +24,16 @@ out.print("Starting...");
 CommandResutCacheListener cl = new CommandResutCacheListener(ClusterExecutorUtil.getClusterNodeAddresses().size(), 2);
 pc.registerCacheListener(cl, CacheListenerScope.ALL);
 
-sbCommand = new ScriptBuilder("https://raw.github.com/dsanz/scripts/cache/symp-2013/");
+sbCommand = new ScriptBuilder("https://raw.github.com/dsanz/scripts/cache/symp-2013/", true);
 sbCommand.append("ScriptBuilder.groovy");
 sbCommand.appendCode("master=\""+  master + "\"");
+sbCommand.append("CommandResultWriter.groovy");
 sbCommand.append("ClusterCommandResultWriter.groovy");
+sbCommand.append("LocalCommandResultWriter.groovy");
 sbCommand.append("Command.groovy");
-sbCommand.append("MonitorMemoryUsageCommand.groovy");
-sbCommand.append("GetPortalImplManifestAttrsCommand.groovy");
-sbCommand.runCluster();
+sbCommand.appendCommand("MemoryUsageCommand.groovy", "MemoryUsageCommand");
+sbCommand.appendCommand("GetPortalImplManifestAttrsCommand.groovy", "GetPortalImplManifestAttrsCommand");
+sbCommand.start();
 
 while (!cl.isDone()) {
 	Thread.sleep(50);
