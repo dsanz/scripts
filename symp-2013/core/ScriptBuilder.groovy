@@ -33,15 +33,14 @@ public class ScriptBuilder {
 		_code = _code + (_code.length() == 0 ? "" : "\n") + script;
 	}
 
-	public void appendCommand(String url, String className, String commandName) {
+	public void appendCommand(String url, String className) {
 		// add command class definition
 		append(url)
 		// create command variable name
 		_commandId++;
 		String id="command_"+_commandId;
 		// add code to create an object for the command
-		appendCode("Command " + id + " = new " + className + "(" +
-			commandName + ", " + _isCluster + ")");
+		appendCode("Command " + id + " = new " + className + "(" + _isCluster + ")");
 		// add code to run the command
 		appendCode(id + ".run()");
 	}
