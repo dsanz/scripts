@@ -1,17 +1,4 @@
-/* Cluster monitor prepares a set of ClusterMonitor Commands and execute them in cluster */
-
-import com.liferay.portal.kernel.cache.MultiVMPoolUtil;
-import com.liferay.portal.kernel.cache.PortalCache
-import com.liferay.portal.kernel.log.Log
-import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.cluster.ClusterExecutorUtil;
-
-
-import java.util.HashSet;
-import java.util.Set;
-import java.io.Serializable;
-import com.liferay.portal.kernel.cache.CacheListener;
-import com.liferay.portal.kernel.cache.CacheListenerScope;
+/* Cluster monitor prepares a set of Commands and executes them in cluster */
 
 out.print("Starting...");
 
