@@ -1,14 +1,15 @@
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.cluster.ClusterExecutorUtil;
-
 public abstract class Command {
 	private CommandResultWriter result;
 	private String commandName;
 
-	public Command(String commandName) {
+	public Command(String commandName, boolean isCluster) {
 		this.commandName = commandName;
-		setResultWriter(buildResultWriter());
+		if (isCluster) {
+			setResultWriter(new ClusterCommandResultWriter(commandName));
+		}
+		else {
+			setResultWriter(new LocalCommandResultWriter(commandName));
+		}
 	}
 
 	public abstract void execute();
@@ -24,8 +25,6 @@ public abstract class Command {
 	public void setResultWriter(CommandResultWriter resultWriter) {
 		result = resultWriter;
 	}
-
-	public abstract CommandResultWriter buildResultWriter();
 
 	public void run() {
 		execute();
