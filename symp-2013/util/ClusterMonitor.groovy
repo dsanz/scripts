@@ -21,13 +21,13 @@ String master = ClusterExecutorUtil.getLocalClusterNodeAddress().getRealAddress(
 
 out.print("Starting...");
 
-ClusterMonitorCacheListener cl = new ClusterMonitorCacheListener(ClusterExecutorUtil.getClusterNodeAddresses().size(), 2);
+CommandResutCacheListener cl = new CommandResutCacheListener(ClusterExecutorUtil.getClusterNodeAddresses().size(), 2);
 pc.registerCacheListener(cl, CacheListenerScope.ALL);
 
 sbCommand = new ScriptBuilder("https://raw.github.com/dsanz/scripts/cache/symp-2013/");
 sbCommand.append("ScriptBuilder.groovy");
 sbCommand.appendCode("master=\""+  master + "\"");
-sbCommand.append("CommandResultWriter.groovy");
+sbCommand.append("ClusterCommandResultWriter.groovy");
 sbCommand.append("ClusterCommand.groovy");
 sbCommand.append("ClusterMonitorMemoryUsageCommand.groovy");
 sbCommand.append("ClusterGetPortalImplManifestAttrsCommand.groovy");
