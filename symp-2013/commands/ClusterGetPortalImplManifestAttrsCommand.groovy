@@ -8,8 +8,8 @@ public class ClusterGetPortalImplManifestAttrsCommand extends ClusterCommand {
 	public String PORTAL_LIB_NAME = "portal-impl";
 	public String PORTAL_LIB_PATH =  PORTAL_LIB_NAME + ".jar";
 
-	public ClusterGetPortalImplManifestAttrsCommand() {
-		super("portal-impl_MF_Attrs");
+	public ClusterGetPortalImplManifestAttrsCommand(boolean isCluster) {
+		super("portal-impl_MF_Attrs", isCluster);
 	}
 
 	public void execute() {

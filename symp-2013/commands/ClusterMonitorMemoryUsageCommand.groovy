@@ -1,6 +1,7 @@
 public class ClusterMonitorMemoryUsageCommand extends ClusterCommand {
-	public ClusterMonitorMemoryUsageCommand() {
-		super("MemoryUsage");
+
+	public ClusterMonitorMemoryUsageCommand(boolean isCluster) {
+		super("MemoryUsage", isCluster);
 	}
 
 	public void execute() {
