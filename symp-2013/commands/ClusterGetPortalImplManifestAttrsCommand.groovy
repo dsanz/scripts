@@ -32,5 +32,3 @@ public class GetPortalImplManifestAttrsCommand extends ClusterCommand {
 		}
 	}
 }
-
-new ClusterGetPortalImplManifestAttrsCommand().run();

@@ -12,4 +12,4 @@ public class MonitorMemoryUsageCommand extends ClusterCommand {
 	}
 }
 
-new MonitorMemoryUsageCommand().run();
+
