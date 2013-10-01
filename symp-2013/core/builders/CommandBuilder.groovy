@@ -6,7 +6,7 @@ import com.liferay.portal.kernel.cluster.ClusterExecutorUtil
 public class CommandBuilder extends ScriptBuilder {
 	private int _commandCount;
 	private PortalCache _resultsCache;
-	private CommandResutCacheListener cl;
+	private CommandResultCacheListener cl;
 
 	public CommandBuilder(String baseURL, boolean isCluster) {
 		super(baseURL, isCluster)
@@ -37,7 +37,7 @@ public class CommandBuilder extends ScriptBuilder {
 		}
 
 		// create the cache listener and configure it to expect an exact number of puts
-		cl = new CommandResutCacheListener(clusterSize, _commandCount);
+		cl = new CommandResultCacheListener(clusterSize, _commandCount);
 		// register a result handler for that cache so that once all puts are there, we can notify that handler.
 		cl.registerResultHandler(rs);
 		// add the cache listener to the cache we want to listen

@@ -16,7 +16,7 @@ public class CommandResultCacheListener implements CacheListener, CommandResultL
 	Set<String> keys;
 	private boolean done=false;
 	private Map<String, String> _result;
-	private List<ResultHander> _resultHandlers;
+	private List<ResultHandler> _resultHandlers;
 
 	public CommandResultCacheListener(int clusterSize, int numberOfCommands) {
 		_log = LogFactoryUtil.getLog("CommandResultCacheListener")
