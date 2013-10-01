@@ -5,8 +5,8 @@ out.print("Starting...");
 boolean isCluster=true;
 
 cb = new CommandBuilder("https://raw.github.com/dsanz/scripts/master/symp-2013/", isCluster);
-cb.appendCommand("commands/MemoryUsageCommand.groovy", "MemoryUsage");
-cb.appendCommand("commands/GetPortalImplManifestAttrsCommand.groovy", "ManifestAttrs");
+cb.appendCommand("commands/MemoryUsageCommand.groovy", "MemoryUsageCommand");
+cb.appendCommand("commands/GetPortalImplManifestAttrsCommand.groovy", "GetPortalImplManifestAttrsCommand");
 cb.start(new LiferayConsoleOutputHandler(out));
 
 
