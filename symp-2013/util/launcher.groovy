@@ -1,10 +1,16 @@
-import com.liferay.portal.kernel.scripting.ScriptingUtil;
+import com.liferay.portal.kernel.scripting.ScriptingUtil
 
-String baseURL = "https://raw.github.com/dsanz/scripts/master/symp-2013/"
+public class Launcher extends FrameworkLoader {
+	public List<String> getLogic() {
+		String logic = new ArrayList<String>();
+		logic.add("@");
+		return logic;
+	}
+}
 
-String logic = new URL(baseURL + "@").text
+code = new Launcher().getFramework();
 
 Map<String, Object> env = new HashMap<String, Object>();
 env.put("out", out);
 
-ScriptingUtil.exec(null, env, "groovy", framework + "\n" + logic);
+ScriptingUtil.exec(null, env, "groovy", code);
