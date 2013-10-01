@@ -19,7 +19,7 @@ public abstract class FrameworkLoader {
 	private List<String> getInterfaces() {
 		List<String> interfaces = new ArrayList<String>();
 		interfaces.add("core/resulthandlers/ResultHandler.groovy");
-		interfaces.add("core/resultwriters/CommandResultWriter.groovy");
+		interfaces.add("core/resultwriter/CommandResultWriter.groovy");
 		interfaces.add("core/resultlistener/CommandResultListener.groovy");
 		interfaces.add("core/Command.groovy");
 		return interfaces;
