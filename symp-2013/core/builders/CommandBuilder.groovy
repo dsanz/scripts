@@ -24,15 +24,15 @@ public class CommandBuilder extends ScriptBuilder {
 	}
 
 	private void initCommand() {
-		append("ScriptBuilder.groovy");
-		append("CommandResultWriter.groovy");
-		append("ClusterCommandResultWriter.groovy");
-		append("LocalCommandResultWriter.groovy");
-		append("Command.groovy");
+		append("core/builders/ScriptBuilder.groovy");
+		append("core/resultwriter/CommandResultWriter.groovy");
+		append("core/resultwriter/ClusterCommandResultWriter.groovy");
+		append("core/resultwriter/LocalCommandResultWriter.groovy");
+		append("core/Command.groovy");
 	}
 
 	private void initResultCache() {
-		_resultsCache = MultiVMPoolUtil.getCache("CLUSTER_MONITOR");
+		_resultsCache = MultiVMPoolUtil.getCache("COMMAND_RESULT");
 		_resultsCache.removeAll();
 		_resultsCache.unregisterCacheListeners();
 	}
@@ -50,7 +50,12 @@ public class CommandBuilder extends ScriptBuilder {
 		cl.registerResultHandler(rs);
 		// add the cache listener to the cache we want to listen
 		_resultsCache.registerCacheListener(cl, CacheListenerScope.ALL);
+	}
 
+	private void removeCache() {
+		_resultsCache.unregisterCacheListeners();
+		_resultsCache.removeAll();
+		_resultsCache.destroy();
 	}
 
 	public void appendCommand(String url, String className) {
@@ -69,5 +74,6 @@ public class CommandBuilder extends ScriptBuilder {
 		// dont init listener until we know the number of commands to run
 		initCacheListener(rs);
 		super.start();
+		removeCache();
 	}
 }
