@@ -1,6 +1,6 @@
-public class MonitorMemoryUsageCommand extends ClusterCommand {
+public class MemoryUsageCommand extends Command {
 
-	public MonitorMemoryUsageCommand(boolean isCluster) {
+	public MemoryUsageCommand(boolean isCluster) {
 		super("MemoryUsage", isCluster);
 	}
 
