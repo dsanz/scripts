@@ -16,7 +16,6 @@ public class ScriptBuilder {
 	public ScriptBuilder(String baseURL, boolean isCluster) {
 		_baseUrl = baseURL;
 		_isCluster = isCluster;
-		_commandId = 0;
 		appendCode("import com.liferay.portal.kernel.scripting.ScriptingUtil;");
 		appendCode("ScriptingUtil.clearCache(\"groovy\");");
 
@@ -25,6 +24,14 @@ public class ScriptBuilder {
 				ClusterExecutorUtil.getLocalClusterNodeAddress().getRealAddress();
 			appendCode("master=\""+  master + "\"");
 		}
+	}
+
+	public ScriptBuilder(boolean isCluster) {
+		this("", isCluster);
+	}
+
+	public ScriptBuilder() {
+		this(false);
 	}
 
 	public void addVariable(String name, String value) {
