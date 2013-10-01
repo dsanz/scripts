@@ -32,42 +32,42 @@ public class CommandBuilder extends ScriptBuilder {
 	}
 
 	private void initResultCache() {
-		PortalCache pc = MultiVMPoolUtil.getCache("CLUSTER_MONITOR");
-		pc.removeAll();
-		pc.unregisterCacheListeners();
+		_resultsCache = MultiVMPoolUtil.getCache("CLUSTER_MONITOR");
+		_resultsCache.removeAll();
+		_resultsCache.unregisterCacheListeners();
 	}
 
-	private void initCacheListener() {
+	private void initCacheListener(ResultHandler rs) {
 		int clusterSize = 1;
 
 		if (isCluster()) {
 			clusterSize = ClusterExecutorUtil.getClusterNodeAddresses().size();
 		}
 
+		// create the cache listener and configure it to expect an exact number of puts
 		cl = new CommandResutCacheListener(clusterSize, _commandCount);
+		// register a result handler for that cache so that once all puts are there, we can notify that handler.
+		cl.registerResultHandler(rs);
+		// add the cache listener to the cache we want to listen
 		_resultsCache.registerCacheListener(cl, CacheListenerScope.ALL);
+
 	}
 
 	public void appendCommand(String url, String className) {
-		// add command class definition
-		append(url)
 		// create command variable name
 		_commandCount++;
 		String id="command_"+_commandCount;
-		// add code to create an object for the command
+		// add command class definition to the script
+		append(url)
+		// add code to create a command object of that class. Make sure we inform the command about isCluster
 		appendCode("Command " + id + " = new " + className + "(" + _isCluster + ")");
 		// add code to run the command
 		appendCode(id + ".run()");
 	}
 
-	public void start() {
+	public void start(ResultHandler rs) {
 		// dont init listener until we know the number of commands to run
-		initCacheListener();
-		if (_isCluster) {
-			runCluster()
-		}
-		else {
-			run();
-		}
+		initCacheListener(rs);
+		super.start();
 	}
 }
