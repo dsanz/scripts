@@ -57,7 +57,7 @@ public class CommandBuilder extends ScriptBuilder {
 		// add command class definition to the script
 		append(url)
 		// add code to create a command object of that class. Make sure we inform the command about isCluster
-		appendCode("Command " + id + " = new " + className + "(" + _isCluster + ")");
+		appendCode("Command " + id + " = new " + className + "(" + isCluster() + ")");
 		// add code to run the command
 		appendCode(id + ".run()");
 	}
