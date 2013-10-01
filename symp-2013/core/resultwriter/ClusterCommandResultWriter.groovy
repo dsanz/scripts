@@ -9,13 +9,13 @@ public class ClusterCommandResultWriter extends CommandResultWriter {
 	}
 
 	public void done() {
-		ScriptBuilder sb = new ScriptBuilder("", true);
+		ScriptBuilder sb = new ScriptBuilder(true);
 		sb.appendCode("import com.liferay.portal.kernel.log.LogFactoryUtil;");
 		sb.appendCode("import com.liferay.portal.kernel.cache.PortalCache");
 		sb.appendCode("import com.liferay.portal.kernel.cache.MultiVMPoolUtil")
 		sb.appendCode("_log = LogFactoryUtil.getLog(\"ClusterResultWriter_" + _cacheKey + "\");");
 		sb.appendCode("_log.error(\"Running command result writer\");");
-		sb.appendCode("PortalCache pc = MultiVMPoolUtil.getCache(\"CLUSTER_MONITOR\");")
+		sb.appendCode("PortalCache pc = MultiVMPoolUtil.getCache(\"COMMAND_RESULT\");")
 		sb.appendCode("pc.put(\"" + getCacheKey() + "\", \"" + getResult().replace("\"", "\\\"") + "\");");
 		sb.start();
 	}
