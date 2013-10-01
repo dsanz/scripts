@@ -1,6 +1,9 @@
 import com.liferay.portal.kernel.util.StringBundler;
+import java.util.List;
+import java.util.ArrayList;
 
-public class FrameworkLoader {
+
+public abstract class FrameworkLoader {
 	public String toCode(ArrayList<String>... urlsList) {
 		String baseURL = "https://raw.github.com/dsanz/scripts/master/symp-2013/"
 		String code = new StringBundler();
@@ -14,7 +17,7 @@ public class FrameworkLoader {
 	}
 
 	private List<String> getInterfaces() {
-		interfaces = new ArrayList<String>();
+		List<String> interfaces = new ArrayList<String>();
 		interfaces.add("core/resulthandlers/ResultHandler.groovy");
 		interfaces.add("core/resultwriters/CommandResultWriter.groovy");
 		interfaces.add("core/resultlistener/CommandResultListener.groovy");
@@ -23,7 +26,7 @@ public class FrameworkLoader {
 	}
 
 	public List<String> getClasses() {
-		classes = new ArrayList<String>();
+		List<String> classes = new ArrayList<String>();
 		classes.add("core/builders/ScriptBuilder.groovy");
 		classes.add("core/builders/CommandBuilder.groovy");
 		classes.add("core/resulthandlers/LiferayConsoleOutputHandler.groovy");
@@ -33,16 +36,10 @@ public class FrameworkLoader {
 		return classes;
 	}
 
-	public List<String> getUtils() {
-		utils = new ArrayList<String>();
-		utils.add("util/ClusterMonitorSample.groovy")
-		return utils;
-	}
+	public abstract List<String> getLogic();
 
 	public String getFramework() {
-		return toCode(getInterfaces(), getClasses(), getUtils())
+		return toCode(getInterfaces(), getClasses(), getLogic())
 	}
 
 }
-
-framework = new FrameworkLoader().getFramework()
