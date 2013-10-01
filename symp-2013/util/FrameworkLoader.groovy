@@ -45,4 +45,4 @@ public class FrameworkLoader {
 
 }
 
-framework = new Framework().getFramework()
+framework = new FrameworkLoader().getFramework()
