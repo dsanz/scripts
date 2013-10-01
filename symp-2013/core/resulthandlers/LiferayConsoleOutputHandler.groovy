@@ -8,7 +8,7 @@ public class LiferayConsoleOutputHandler implements ResultHandler {
 	}
 
 	public void done(CommandResultListener crl) {
-		_out.print("done!<br>");
+		_out.print("<br>All command results have been received. Pretty-printing...<br>");
 		_out.print("<div id='clustermonitorresult'></div>");
 		_out.println("<script src='https://raw.github.com/padolsey/prettyPrint.js/master/prettyprint.js'></script>");
 		_out.println("<script type='text/javascript'>");
