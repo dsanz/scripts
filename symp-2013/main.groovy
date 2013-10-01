@@ -1,13 +1,10 @@
 import com.liferay.portal.kernel.scripting.ScriptingUtil;
-import java.util.Map;
-import java.util.HashMap;
+String baseURL = "https://raw.github.com/dsanz/scripts/master/symp-2013/"
 
-String baseURL = "https://raw.github.com/dsanz/scripts/cache/symp-2013/"
-
-String scriptBuilder = new URL(baseURL + "core/builders/ScriptBuilder.groovy").text
-String clusterMonitor = new URL(baseURL + "util/ClusterMonitor.groovy").text
+String frameworkLoader = new URL(baseURL + "util/FrameworkLoader.groovy").text
+String clusterMonitor = new URL(baseURL + "util/ClusterMonitorSample.groovy").text
 
 Map<String, Object> env = new HashMap<String, Object>();
 env.put("out", out);
 
-ScriptingUtil.exec(null, env, "groovy", scriptBuilder + "\n" +  clusterMonitor);
+ScriptingUtil.exec(null, env, "groovy", frameworkLoader + "\n" +  clusterMonitor);
