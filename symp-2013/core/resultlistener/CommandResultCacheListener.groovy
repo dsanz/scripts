@@ -10,18 +10,19 @@ import java.util.Set;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ClusterMonitorCacheListener implements CacheListener {
+public class CommandResultCacheListener implements CacheListener, CommandResultListener {
 	long _expectedPuts;
 	Log _log;
 	Set<String> keys;
 	private boolean done=false;
 	private Map<String, String> _result;
+	private List<ResultHander> _resultHandlers;
 
-	public ClusterMonitorCacheListener(int clusterSize, int numberOfCommands) {
-		_log = LogFactoryUtil.getLog("ClusterMonitorCacheListener")
+	public CommandResultCacheListener(int clusterSize, int numberOfCommands) {
+		_log = LogFactoryUtil.getLog("CommandResultCacheListener")
 		keys = new HashSet<String>();
 		_expectedPuts = clusterSize*numberOfCommands;
-		_log.error("Creating ClusterMonitorCacheListener, size: " + _expectedPuts)
+		_log.error("Creating CommandResultCacheListener, size: " + _expectedPuts)
 		_result = new HashMap<String, String>();
 	}
 
@@ -45,7 +46,14 @@ public class ClusterMonitorCacheListener implements CacheListener {
 				_log.error("Recv data: " + k + " -> " + portalCache.get(k));
 			}
 			done=true;
+			for (ResultHandler rs : _resultHandlers) {
+				rs.done(this);
+			}
 		}
+	}
+
+	public void registerResultHandler(ResultHandler rs) {
+		_resultHandlers.add(rs);
 	}
 
 	public JSONObject getResult() {
