@@ -2,7 +2,7 @@ import com.liferay.portal.kernel.scripting.ScriptingUtil
 
 public class Launcher extends FrameworkLoader {
 	public List<String> getLogic() {
-		String logic = new ArrayList<String>();
+		List<String> logic = new ArrayList<String>();
 		logic.add("@");
 		return logic;
 	}
