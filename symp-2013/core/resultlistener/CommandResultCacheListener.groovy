@@ -22,6 +22,7 @@ public class CommandResultCacheListener implements CacheListener, CommandResultL
 		_log = LogFactoryUtil.getLog("CommandResultCacheListener")
 		keys = new HashSet<String>();
 		_expectedPuts = clusterSize*numberOfCommands;
+		_resultHandlers = new ArrayList<ResultHandler>();
 		_log.error("Creating CommandResultCacheListener, size: " + _expectedPuts)
 		_result = new HashMap<String, String>();
 	}
