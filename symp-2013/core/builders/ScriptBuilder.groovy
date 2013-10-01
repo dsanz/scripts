@@ -1,3 +1,4 @@
+import com.liferay.portal.kernel.cluster.ClusterExecutorUtil
 import com.liferay.portal.kernel.scheduler.Trigger;
 import com.liferay.portal.kernel.scheduler.StorageType;
 import com.liferay.portal.kernel.scheduler.SchedulerEngineUtil;
@@ -10,11 +11,27 @@ import com.liferay.portal.kernel.scripting.ScriptingUtil;
 public class ScriptBuilder {
 	private String _code = "";
 	private String _baseUrl;
+	private boolean _isCluster;
 
-	public ScriptBuilder(String baseURL) {
+	public ScriptBuilder(String baseURL, boolean isCluster) {
 		_baseUrl = baseURL;
+		_isCluster = isCluster;
 		appendCode("import com.liferay.portal.kernel.scripting.ScriptingUtil;");
 		appendCode("ScriptingUtil.clearCache(\"groovy\");");
+
+		if (_isCluster) {
+			String master =
+				ClusterExecutorUtil.getLocalClusterNodeAddress().getRealAddress();
+			appendCode("master=\""+  master + "\"");
+		}
+	}
+
+	public ScriptBuilder(boolean isCluster) {
+		this("", isCluster);
+	}
+
+	public ScriptBuilder() {
+		this(false);
 	}
 
 	public void addVariable(String name, String value) {
@@ -45,6 +62,10 @@ public class ScriptBuilder {
 		return get(url).replace(text, replacement);
 	}
 
+	public boolean isCluster() {
+		return _isCluster;
+	}
+
 	public void echo() {
 		System.out.print(_code);
 	}
@@ -53,12 +74,12 @@ public class ScriptBuilder {
 		return _code;
 	}
 
-	public void run() {
+	private void run() {
 		ScriptingUtil.clearCache("groovy");
 		ScriptingUtil.exec(null, null, "groovy", _code);
 	}
 
-	public void runCluster() {
+	private void runCluster() {
 		try {
 			Trigger t = new IntervalTrigger("execute cluster script", "request", new Date(), new Date(), 1);
 			Message m = new Message();
@@ -68,6 +89,15 @@ public class ScriptBuilder {
 		}
 		catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+
+	public void start() {
+		if (_isCluster) {
+			runCluster()
+		}
+		else {
+			run();
 		}
 	}
 }
