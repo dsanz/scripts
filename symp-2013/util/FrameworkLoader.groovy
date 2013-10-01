@@ -41,5 +41,4 @@ public abstract class FrameworkLoader {
 	public String getFramework() {
 		return toCode(getInterfaces(), getClasses(), getLogic())
 	}
-
 }
