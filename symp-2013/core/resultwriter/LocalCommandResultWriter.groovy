@@ -7,7 +7,7 @@ public class LocalCommandResultWriter extends CommandResultWriter {
 	}
 
 	public void done() {
-		PortalCache pc = MultiVMPoolUtil.getCache("CLUSTER_MONITOR");
+		PortalCache pc = MultiVMPoolUtil.getCache("COMMAND_RESULT");
 		pc.put(getCacheKey(), getResult());
 	}
 }
