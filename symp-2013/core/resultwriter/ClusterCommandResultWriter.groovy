@@ -4,7 +4,7 @@ import com.liferay.portal.kernel.json.JSONObject
 
 public class ClusterCommandResultWriter extends CommandResultWriter {
 	public ClusterCommandResultWriter(String command) {
-		super("" + ClusterExecutorUtil.getLocalClusterNodeAddress().getRealAddress() + "_" + command);
+		super("" + ClusterExecutorUtil.getLocalClusterNodeAddress().getRealAddress() + "!" + command);
 	}
 
 	public void done() {
