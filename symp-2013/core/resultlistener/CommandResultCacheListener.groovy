@@ -68,7 +68,7 @@ public class CommandResultCacheListener implements CacheListener, CommandResultL
 			}
 			JSONObject resultPerCommand = result.getJSONObject(command);
 			JSONObject resultPerCommandPerNode = JSONFactoryUtil.createJSONObject(_result.get(k));
-			resultPerCommand.put(node, resultPerCommandPerNode.getJSONObject(command));
+			resultPerCommand.put(node, resultPerCommandPerNode.getJSONObject(k));
 		}
 		return result;
 	}
