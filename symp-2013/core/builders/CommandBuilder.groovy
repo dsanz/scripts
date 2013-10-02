@@ -2,6 +2,7 @@ import com.liferay.portal.kernel.cache.CacheListenerScope
 import com.liferay.portal.kernel.cache.MultiVMPoolUtil
 import com.liferay.portal.kernel.cache.PortalCache
 import com.liferay.portal.kernel.cluster.ClusterExecutorUtil
+import java.lang.Thread;
 
 public class CommandBuilder extends ScriptBuilder {
 	private int _commandCount;
