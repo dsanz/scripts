@@ -8,6 +8,7 @@ cb = new CommandBuilder("https://raw.github.com/dsanz/scripts/master/symp-2013/"
 cb.appendCommand("commands/MemoryUsageCommand.groovy", "MemoryUsageCommand");
 cb.appendCommand("commands/GetPortalImplManifestAttrsCommand.groovy", "GetPortalImplManifestAttrsCommand");
 cb.appendCommand("commands/GetMachineMemoryCommand.groovy", "GetMachineMemoryCommand");
+cb.appendCommand("commands/GetJVMInfoCommand.groovy", "GetJVMInfoCommand");
 cb.start(new LiferayConsoleOutputHandler(out));
 
 
