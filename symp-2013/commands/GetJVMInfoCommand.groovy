@@ -11,7 +11,7 @@ public class GetJVMInfoCommand extends Command {
 		RuntimeMXBean re =  ManagementFactory.getRuntimeMXBean();
 		addResult("JVM name", re.getVmName())
 		addResult("JVM vendor", re.getVmVendor())
-		addResult("JVM version" + re.getVmVersion())
+		addResult("JVM version", re.getVmVersion())
 		int argCount=0;
 		for (String arguments : ManagementFactory.getRuntimeMXBean().getInputArguments()) {
 			argCount++;
