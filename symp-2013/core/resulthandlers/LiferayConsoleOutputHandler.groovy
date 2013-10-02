@@ -17,7 +17,7 @@ public class LiferayConsoleOutputHandler implements ResultHandler {
 	}
 
 	public boolean isDone() {
-		return done;
+		return _done;
 	}
 
 	public void done(CommandResultListener crl) {
