@@ -1,3 +1,5 @@
+import com.liferay.portal.kernel.util.StringBundler;
+
 public class GetMachineMemoryCommand extends Command {
 
 	public GetMachineMemoryCommand(boolean isCluster) {
