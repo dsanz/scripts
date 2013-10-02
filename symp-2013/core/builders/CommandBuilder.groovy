@@ -66,6 +66,12 @@ public class CommandBuilder extends ScriptBuilder {
 		// dont init listener until we know the number of commands to run
 		initCacheListener(rs);
 		super.start();
+
+		if (rs.isSynchronous()) {
+			while (!rs.isDone()) {
+				Thread.sleep(50);
+			}
+		}
 		//removeCache();
 	}
 }

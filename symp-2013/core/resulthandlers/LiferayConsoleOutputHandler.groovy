@@ -5,9 +5,19 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 public class LiferayConsoleOutputHandler implements ResultHandler {
 	Log _log = LogFactoryUtil.getLog("LiferayConsoleOutputHandler") ;
 	UnsyncPrintWriter _out;
+	boolean _done;
 
 	public LiferayConsoleOutputHandler(UnsyncPrintWriter out) {
 		_out = out;
+		_done = false;
+	}
+
+	public boolean isSynchronous() {
+		return true;
+	}
+
+	public boolean isDone() {
+		return done;
 	}
 
 	public void done(CommandResultListener crl) {
@@ -20,5 +30,6 @@ public class LiferayConsoleOutputHandler implements ResultHandler {
 		_out.println("var tbl = prettyPrint(r);");
 		_out.println("document.getElementById('clustermonitorresult').appendChild(tbl);");
 		_out.println("</script>");
+		_done = true;
 	}
 }
