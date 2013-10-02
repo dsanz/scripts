@@ -4,7 +4,7 @@ import com.liferay.portal.kernel.json.JSONObject
 
 public class ClusterCommandResultWriter extends CommandResultWriter {
 	public ClusterCommandResultWriter(String command) {
-		super(ClusterExecutorUtil.getLocalClusterNodeAddress().getRealAddress() + "!" + command);
+		super("" + ClusterExecutorUtil.getLocalClusterNodeAddress().getRealAddress() + "_" + command);
 	}
 
 	public void done() {
@@ -12,7 +12,7 @@ public class ClusterCommandResultWriter extends CommandResultWriter {
 		sb.appendCode("import com.liferay.portal.kernel.log.LogFactoryUtil;");
 		sb.appendCode("import com.liferay.portal.kernel.cache.PortalCache");
 		sb.appendCode("import com.liferay.portal.kernel.cache.MultiVMPoolUtil")
-		sb.appendCode("_log = LogFactoryUtil.getLog(\"ClusterResultWriter_" + _cacheKey + "\");");
+		sb.appendCode("_log = LogFactoryUtil.getLog(\"ClusterResultWriter_" + getCacheKey() + "\");");
 		sb.appendCode("_log.error(\"Running command result writer\");");
 		sb.appendCode("PortalCache pc = MultiVMPoolUtil.getCache(\"COMMAND_RESULT\");")
 		sb.appendCode("pc.put(\"" + getCacheKey() + "\", \"" + getResult().replace("\"", "\\\"") + "\");");
