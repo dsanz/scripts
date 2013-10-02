@@ -48,12 +48,14 @@ public class CommandResultCacheListener implements CacheListener, CommandResultL
 			}
 			done=true;
 			for (ResultHandler rs : _resultHandlers) {
+				_log.error("Notifying result handler");
 				rs.done(this);
 			}
 		}
 	}
 
 	public void registerResultHandler(ResultHandler rs) {
+		_log.error("Registering result handler of class " + rs.getClass().getName())
 		_resultHandlers.add(rs);
 	}
 

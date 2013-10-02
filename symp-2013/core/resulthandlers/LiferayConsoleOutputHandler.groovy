@@ -1,6 +1,9 @@
-import com.liferay.portal.kernel.io.unsync.UnsyncPrintWriter;
+import com.liferay.portal.kernel.io.unsync.UnsyncPrintWriter
+import com.liferay.portal.kernel.log.Log
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 
 public class LiferayConsoleOutputHandler implements ResultHandler {
+	Log _log = LogFactoryUtil.getLog("LiferayConsoleOutputHandler") ;
 	UnsyncPrintWriter _out;
 
 	public LiferayConsoleOutputHandler(UnsyncPrintWriter out) {
@@ -8,6 +11,7 @@ public class LiferayConsoleOutputHandler implements ResultHandler {
 	}
 
 	public void done(CommandResultListener crl) {
+		_log.error("Generating pretty-printed output for Scripting Console out writer");
 		_out.print("<br>All command results have been received. Pretty-printing...<br>");
 		_out.print("<div id='clustermonitorresult'></div>");
 		_out.println("<script src='https://raw.github.com/padolsey/prettyPrint.js/master/prettyprint.js'></script>");
