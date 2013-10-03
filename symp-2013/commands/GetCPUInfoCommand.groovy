@@ -18,12 +18,14 @@ public class GetCPUInfoCommand extends Command {
 		int cpuCount=0;
 
 		while ((line = br.readLine()) != null) {
-			String param = line.substring(0, line.indexOf(":") - 1).trim();
-			if ("processor".equals(param)) {
-				cpuCount++;
+			if (line.indexOf(":") > 0) {
+				String param = line.substring(0, line.indexOf(":") - 1).trim();
+				if ("processor".equals(param)) {
+					cpuCount++;
+				}
+				String value = line.substring(line.indexOf(":"));
+				addResult(param + "_" + cpuCount, value);
 			}
-			String value = line.substring(line.indexOf(":"));
-			addResult(param + "_" + cpuCount, value);
 			try {
 				exit = proc.exitValue();
 				if (exit == 0)  {
