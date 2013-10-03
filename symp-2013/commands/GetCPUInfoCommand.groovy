@@ -5,7 +5,7 @@ public class GetCPUInfoCommand extends Command {
 	}
 
 	public void execute() {
-		ProcessBuilder pb = new ProcessBuilder("cat /proc/cpuinfo");
+		ProcessBuilder pb = new ProcessBuilder("cat", "/proc/cpuinfo");
 		pb.redirectErrorStream(true);
 		Process proc = pb.start();
 
@@ -18,13 +18,12 @@ public class GetCPUInfoCommand extends Command {
 		int cpuCount=0;
 
 		while ((line = br.readLine()) != null) {
-			lineCount++
 			String param = line.substring(0, line.indexOf(":") - 1).trim();
 			if ("processor".equals(param)) {
 				cpuCount++;
 			}
 			String value = line.substring(line.indexOf(":"));
-			addResult(param + "_" + cpuCount, line);
+			addResult(param + "_" + cpuCount, value);
 			try {
 				exit = proc.exitValue();
 				if (exit == 0)  {
