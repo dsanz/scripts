@@ -9,6 +9,7 @@ cb.appendCommand("commands/MemoryUsageCommand.groovy", "MemoryUsageCommand");
 cb.appendCommand("commands/GetPortalImplManifestAttrsCommand.groovy", "GetPortalImplManifestAttrsCommand");
 cb.appendCommand("commands/GetMachineMemoryCommand.groovy", "GetMachineMemoryCommand");
 cb.appendCommand("commands/GetJVMInfoCommand.groovy", "GetJVMInfoCommand");
+cb.appendCommand("commands/GetCPUInfoCommand.groovy", "GetJVMInfoCommand");
 cb.start(new LiferayConsoleOutputHandler(out));
 
 
