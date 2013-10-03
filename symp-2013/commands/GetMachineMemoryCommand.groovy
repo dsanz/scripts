@@ -1,5 +1,3 @@
-import com.liferay.portal.kernel.util.StringBundler;
-
 public class GetMachineMemoryCommand extends Command {
 
 	public GetMachineMemoryCommand(boolean isCluster) {
@@ -17,10 +15,11 @@ public class GetMachineMemoryCommand extends Command {
 
 		String line;
 		int exit = -1;
-		StringBundler sb = new StringBundler();
+		int lineCount=0;
 
 		while ((line = br.readLine()) != null) {
-			sb.append(line);
+			lineCount++
+			addResult("free_" + lineCount, line);
 			try {
 				exit = proc.exitValue();
 				if (exit == 0)  {
@@ -28,7 +27,5 @@ public class GetMachineMemoryCommand extends Command {
 				}
 			} catch (IllegalThreadStateException t) {}
 		}
-		/* get monitoring info from this node */
-		addResult("free", sb.toString());
 	}
 }
