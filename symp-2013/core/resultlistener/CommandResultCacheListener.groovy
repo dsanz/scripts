@@ -5,10 +5,11 @@ import com.liferay.portal.kernel.log.Log
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.cache.CacheListener;
 import com.liferay.portal.kernel.util.StringUtil;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class CommandResultCacheListener implements CacheListener, CommandResultListener {
 	long _expectedPuts;
@@ -31,9 +32,9 @@ public class CommandResultCacheListener implements CacheListener, CommandResultL
 
 	public void notifyValue(String key, String value) {
 		_result.put(key, value);
-		_log.error("notifyEntryPut for key: " + key + ", value: " + value);
+		_log.debug("New value! key: " + key + ", value: " + value);
 		if (_result.size() == _expectedPuts) {
-			_done=true;
+			_done = true;
 			for (ResultHandler rs : _resultHandlers) {
 				_log.error("Notifying result handler");
 				rs.done(this);
@@ -43,7 +44,7 @@ public class CommandResultCacheListener implements CacheListener, CommandResultL
 
 	public JSONObject getResult() {
 		JSONObject result = JSONFactoryUtil.createJSONObject();
-		for (String k : keys) {
+		for (String k : _result.keySet()) {
 			String[] parts = StringUtil.split(k, '!');
 			String node = parts[0];
 			String command = parts[1];
