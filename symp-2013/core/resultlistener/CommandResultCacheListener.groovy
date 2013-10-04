@@ -30,7 +30,6 @@ public class CommandResultCacheListener implements CacheListener, CommandResultL
 	}
 
 	public void notifyValue(String key, String value) {
-		keys.add(key.toString());
 		_result.put(key, value);
 		_log.error("notifyEntryPut for key: " + key + ", value: " + value);
 		if (_result.size() == _expectedPuts) {
