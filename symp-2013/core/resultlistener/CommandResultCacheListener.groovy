@@ -13,14 +13,12 @@ import java.util.Map;
 public class CommandResultCacheListener implements CacheListener, CommandResultListener {
 	long _expectedPuts;
 	Log _log;
-	Set<String> keys;
-	private boolean done=false;
+	private boolean _done =false;
 	private Map<String, String> _result;
 	private List<ResultHandler> _resultHandlers;
 
 	public CommandResultCacheListener(int clusterSize, int numberOfCommands) {
 		_log = LogFactoryUtil.getLog("CommandResultCacheListener")
-		keys = new HashSet<String>();
 		setNumberOfNotifications(clusterSize * numberOfCommands);
 		_resultHandlers = new ArrayList<ResultHandler>();
 		_log.error("Creating CommandResultCacheListener, size: " + _expectedPuts)
@@ -36,31 +34,12 @@ public class CommandResultCacheListener implements CacheListener, CommandResultL
 		_result.put(key, value);
 		_log.error("notifyEntryPut for key: " + key + ", value: " + value);
 		if (_result.size() == _expectedPuts) {
-			done=true;
+			_done=true;
 			for (ResultHandler rs : _resultHandlers) {
 				_log.error("Notifying result handler");
 				rs.done(this);
 			}
 		}
-	}
-
-	public void notifyEntryEvicted(
-			PortalCache portalCache, Serializable key, Object value) {
-		_log.error("notifyEntryEvicted");
-	}
-	public void notifyEntryExpired(
-			PortalCache portalCache, Serializable key, Object value) {
-		_log.error("notifyEntryExpired");
-	}
-
-	public void notifyEntryPut(
-			PortalCache portalCache, Serializable key, Object value) {
-		notifyValue(key, value);
-	}
-
-	public void registerResultHandler(ResultHandler rs) {
-		_log.error("Registering result handler of class " + rs.getClass().getName())
-		_resultHandlers.add(rs);
 	}
 
 	public JSONObject getResult() {
@@ -84,17 +63,40 @@ public class CommandResultCacheListener implements CacheListener, CommandResultL
 	}
 
 	public boolean isDone() {
-		return done;
+		return _done;
+	}
+
+	public void registerResultHandler(ResultHandler rs) {
+		_log.error("Registering result handler of class " + rs.getClass().getName())
+		_resultHandlers.add(rs);
+	}
+
+	public void notifyEntryEvicted(
+			PortalCache portalCache, Serializable key, Object value) {
+		_log.error("notifyEntryEvicted");
+	}
+	public void notifyEntryExpired(
+			PortalCache portalCache, Serializable key, Object value) {
+		_log.error("notifyEntryExpired");
+	}
+
+	public void notifyEntryPut(
+			PortalCache portalCache, Serializable key, Object value) {
+		notifyValue(key, value);
 	}
 
 	public void notifyEntryRemoved(
 			PortalCache portalCache, Serializable key, Object value) {
-		_log.error("notifyEntryRemoved for key: " + key + ", value: " + value);
-		keys.remove(key.toString());
+		_log.debug("notifyEntryRemoved for key: " + key + ", value: " + value);
+		_result.remove(key.toString());
 	}
+
 	public void notifyEntryUpdated(
 			PortalCache portalCache, Serializable key, Object value) {
-		_log.error("notifyEntryUpdated for key: " + key + ", value: " + value);
+		_log.debug("notifyEntryUpdated for key: " + key + ", value: " + value);
 	}
-	public void notifyRemoveAll(PortalCache portalCache) {}
+
+	public void notifyRemoveAll(PortalCache portalCache) {
+		_result.clear();
+	}
 }
