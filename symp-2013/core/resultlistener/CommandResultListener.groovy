@@ -1,4 +1,7 @@
+package core.resultlistener;
+
 import com.liferay.portal.kernel.json.JSONObject
+import core.resulthandlers.ResultHandler
 
 public interface CommandResultListener {
 	// get listener results

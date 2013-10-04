@@ -1,3 +1,7 @@
+package commands
+
+import core.Command
+
 public class MemoryUsageCommand extends Command {
 
 	public MemoryUsageCommand(boolean isCluster) {

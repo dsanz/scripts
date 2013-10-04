@@ -1,3 +1,6 @@
+package commands
+
+import core.Command
 import java.util.jar.Attributes
 import de.schlichtherle.io.File;
 import de.schlichtherle.io.FileInputStream;

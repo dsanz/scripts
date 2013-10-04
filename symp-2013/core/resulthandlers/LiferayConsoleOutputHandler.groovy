@@ -1,3 +1,5 @@
+package core.resulthandlers;
+
 import com.liferay.portal.kernel.io.unsync.UnsyncPrintWriter
 import com.liferay.portal.kernel.log.Log
 import com.liferay.portal.kernel.log.LogFactoryUtil;

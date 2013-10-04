@@ -1,3 +1,7 @@
+package commands
+
+import core.Command
+
 public class GetMachineMemoryCommand extends Command {
 
 	public GetMachineMemoryCommand(boolean isCluster) {

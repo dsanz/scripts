@@ -1,10 +1,14 @@
+package core.resultlistener;
+
 import com.liferay.portal.kernel.cache.PortalCache
 import com.liferay.portal.kernel.json.JSONFactoryUtil
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.cache.CacheListener;
-import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.StringUtil
+import core.resulthandlers.ResultHandler;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ArrayList;
@@ -12,8 +16,8 @@ import java.util.List;
 
 
 public class CommandResultCacheListener implements CacheListener, CommandResultListener {
-	long _expectedPuts;
-	Log _log;
+	private long _expectedPuts;
+	private Log _log;
 	private boolean _done =false;
 	private Map<String, String> _result;
 	private List<ResultHandler> _resultHandlers;

@@ -1,3 +1,5 @@
+package util;
+
 import com.liferay.portal.kernel.util.StringBundler;
 import java.util.List;
 import java.util.ArrayList;
