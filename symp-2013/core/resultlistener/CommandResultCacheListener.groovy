@@ -21,10 +21,27 @@ public class CommandResultCacheListener implements CacheListener, CommandResultL
 	public CommandResultCacheListener(int clusterSize, int numberOfCommands) {
 		_log = LogFactoryUtil.getLog("CommandResultCacheListener")
 		keys = new HashSet<String>();
-		_expectedPuts = clusterSize*numberOfCommands;
+		setNumberOfNotifications(clusterSize * numberOfCommands);
 		_resultHandlers = new ArrayList<ResultHandler>();
 		_log.error("Creating CommandResultCacheListener, size: " + _expectedPuts)
 		_result = new HashMap<String, String>();
+	}
+
+	public void setNumberOfNotifications(int numberOfNotifications) {
+		_expectedPuts = numberOfNotifications;
+	}
+
+	public void notifyValue(String key, String value) {
+		keys.add(key.toString());
+		_result.put(key, value);
+		_log.error("notifyEntryPut for key: " + key + ", value: " + value);
+		if (_result.size() == _expectedPuts) {
+			done=true;
+			for (ResultHandler rs : _resultHandlers) {
+				_log.error("Notifying result handler");
+				rs.done(this);
+			}
+		}
 	}
 
 	public void notifyEntryEvicted(
@@ -38,20 +55,7 @@ public class CommandResultCacheListener implements CacheListener, CommandResultL
 
 	public void notifyEntryPut(
 			PortalCache portalCache, Serializable key, Object value) {
-		keys.add(key.toString());
-		_log.error("notifyEntryPut for key: " + key + ", value: " + value);
-		if (keys.size() == _expectedPuts) {
-			// process all data and create some aggregated data
-			for (String k : keys) {
-				_result.put(k, portalCache.get(k));
-				_log.error("Recv data: " + k + " -> " + portalCache.get(k));
-			}
-			done=true;
-			for (ResultHandler rs : _resultHandlers) {
-				_log.error("Notifying result handler");
-				rs.done(this);
-			}
-		}
+		notifyValue(key, value);
 	}
 
 	public void registerResultHandler(ResultHandler rs) {
