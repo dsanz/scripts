@@ -1,3 +1,6 @@
+package commands
+
+import core.Command
 import java.lang.management.ManagementFactory
 import java.lang.management.RuntimeMXBean
 

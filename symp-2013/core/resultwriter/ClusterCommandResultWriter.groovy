@@ -1,3 +1,5 @@
+package core.resultwriter;
+
 import com.liferay.portal.kernel.cluster.ClusterExecutorUtil
 import com.liferay.portal.kernel.json.JSONFactoryUtil
 import com.liferay.portal.kernel.json.JSONObject

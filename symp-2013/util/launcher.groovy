@@ -1,3 +1,5 @@
+package util;
+
 import com.liferay.portal.kernel.scripting.ScriptingUtil
 
 public class Launcher extends FrameworkLoader {

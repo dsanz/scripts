@@ -1,4 +1,6 @@
-/* Cluster monitor prepares a set of Commands and executes them in cluster */
+package util
+
+import core.builders.CommandBuilder;
 
 out.print("Starting...");
 

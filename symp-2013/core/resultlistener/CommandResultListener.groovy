@@ -1,9 +1,18 @@
+package core.resultlistener;
+
 import com.liferay.portal.kernel.json.JSONObject
+import core.resulthandlers.ResultHandler
 
 public interface CommandResultListener {
 	// get listener results
 	public JSONObject getResult();
 	public String getResultAsString();
+
+	// configures the number of notifications this listener expects
+	public void setNumberOfNotifications(int numberOfNotifications);
+
+	// tells this listener a new command result is available
+	public void notifyValue(String key, String value);
 
 	// async way of know if we're done
 	public boolean isDone();

@@ -1,3 +1,5 @@
+package core.resulthandlers;
+
 public interface ResultHandler {
 	public void done(CommandResultListener crl);
 	public boolean isSynchronous();
