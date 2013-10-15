@@ -1,3 +1,7 @@
+package commands
+
+import core.Command
+
 public class GetCPUInfoCommand extends Command {
 
 	public GetCPUInfoCommand(boolean isCluster) {
@@ -23,7 +27,7 @@ public class GetCPUInfoCommand extends Command {
 				if ("processor".equals(param)) {
 					cpuCount++;
 				}
-				String value = line.substring(line.indexOf(":"));
+				String value = line.substring(line.indexOf(":") + 1);
 				addResult(param + "_" + cpuCount, value);
 			}
 			try {

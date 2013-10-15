@@ -1,3 +1,5 @@
+package core.resultwriter;
+
 import com.liferay.portal.kernel.cache.PortalCache;
 import com.liferay.portal.kernel.cache.MultiVMPoolUtil;
 

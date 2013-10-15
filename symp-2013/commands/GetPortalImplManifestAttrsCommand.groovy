@@ -1,3 +1,6 @@
+package commands
+
+import core.Command
 import java.util.jar.Attributes
 import de.schlichtherle.io.File;
 import de.schlichtherle.io.FileInputStream;
@@ -22,7 +25,9 @@ public class GetPortalImplManifestAttrsCommand extends Command {
 			fis = new FileInputStream(portalImplManifest);
 			Attributes attributes = new Manifest(fis).getMainAttributes();
 			for (Object attrName : attributes.keySet()) {
-				addResult((String)attrName, attributes.getValue(attrName).replace("\"", "'"));
+				if (attrName.equals("Export-Package")) {
+					addResult((String)attrName, attributes.getValue(attrName).replace("\"", "'"));
+				}
 			}
 		}
 		finally {

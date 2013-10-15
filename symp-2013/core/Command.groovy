@@ -1,3 +1,9 @@
+package core;
+
+import core.resultwriter.ClusterCommandResultWriter
+import core.resultwriter.CommandResultWriter
+import core.resultwriter.LocalCommandResultWriter
+
 public abstract class Command {
 	private CommandResultWriter result;
 	private String commandName;
