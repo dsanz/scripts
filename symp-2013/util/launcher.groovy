@@ -1,6 +1,4 @@
-package util;
-
-import com.liferay.portal.kernel.scripting.ScriptingUtil
+isimport com.liferay.portal.kernel.scripting.ScriptingUtil
 
 public class Launcher extends FrameworkLoader {
 	public List<String> getLogic() {
