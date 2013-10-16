@@ -14,6 +14,7 @@ public class ScriptBuilder {
 	private String _code = "";
 	private String _baseUrl;
 	private boolean _isCluster;
+	private String[] packages = ["commands","core","util"]
 
 	public ScriptBuilder(String baseURL, boolean isCluster) {
 		_baseUrl = baseURL;
@@ -73,12 +74,21 @@ public class ScriptBuilder {
 	}
 
 	public String getCode() {
-		return _code;
+		return unpack(_code);
+	}
+
+	private String unpack(String code) {
+		String result = _code;
+		for (String pkg : packages) {
+			result = result.replaceAll("package " + pkg + ".*", "");
+			result = result.replaceAll("import " + pkg + ".*", "");
+		}
+		return result;
 	}
 
 	private void run() {
 		ScriptingUtil.clearCache("groovy");
-		ScriptingUtil.exec(null, null, "groovy", _code);
+		ScriptingUtil.exec(null, null, "groovy", getCode());
 	}
 
 	private void runCluster() {
@@ -86,7 +96,7 @@ public class ScriptBuilder {
 			Trigger t = new IntervalTrigger("execute cluster script", "request", new Date(), new Date(), 1);
 			Message m = new Message();
 			m.put(SchedulerEngine.LANGUAGE, "groovy");
-			m.put(SchedulerEngine.SCRIPT, _code);
+			m.put(SchedulerEngine.SCRIPT, getCode());
 			SchedulerEngineUtil.schedule(t,StorageType.MEMORY, "run now", DestinationNames.SCHEDULER_SCRIPTING, m, 0);
 		}
 		catch (Exception e) {
