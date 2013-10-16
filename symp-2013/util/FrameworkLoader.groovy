@@ -2,16 +2,27 @@ package util;
 
 import com.liferay.portal.kernel.util.StringBundler;
 import java.util.List;
-import java.util.ArrayList;
+import java.util.ArrayList
+import java.util.regex.Pattern;
 
 
 public abstract class FrameworkLoader {
+	private String[] packages = ["commands","core","util"]
+
+	public String unpack(String code) {
+		for (String pkg : packages) {
+			code = code.replaceAll("^package " + pkg + ".*\$", "");
+			code = code.replaceAll("^import " + pkg + ".*\$", "");
+		}
+		return code;
+	}
+
 	public String toCode(ArrayList<String>... urlsList) {
 		String baseURL = "https://raw.github.com/dsanz/scripts/master/symp-2013/"
 		StringBundler code = new StringBundler();
 		for (ArrayList<String> urlList : urlsList) {
 			for (String url : urlList) {
-				code.append(new URL(baseURL + url).text);
+				code.append(unpack(new URL(baseURL + url).text));
 				code.append("\n");
 			}
 		}
