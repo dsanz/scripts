@@ -11,8 +11,8 @@ public abstract class FrameworkLoader {
 
 	public String unpack(String code) {
 		for (String pkg : packages) {
-			code = code.replaceAll("^package " + pkg + ".*\$", "");
-			code = code.replaceAll("^import " + pkg + ".*\$", "");
+			code = code.replaceAll("^package " + pkg + ".*", "");
+			code = code.replaceAll("^import " + pkg + ".*", "");
 		}
 		return code;
 	}
