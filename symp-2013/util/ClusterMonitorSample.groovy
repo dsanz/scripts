@@ -1,6 +1,7 @@
 package util
 
-import core.builders.CommandBuilder;
+import core.builders.CommandBuilder
+import core.resulthandlers.LiferayConsoleOutputHandler;
 
 out.print("Starting...");
 
