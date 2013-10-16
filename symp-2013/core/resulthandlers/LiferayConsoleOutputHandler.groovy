@@ -29,7 +29,7 @@ public class LiferayConsoleOutputHandler implements ResultHandler {
 		_out.println("<script src='https://raw.github.com/padolsey/prettyPrint.js/master/prettyprint.js'></script>");
 		_out.println("<script type='text/javascript'>");
 		_out.println("var r=" + crl.getResultAsString() + ";");
-		_out.println("var tbl = prettyPrint(r, {expand:false});");
+		_out.println("var tbl = prettyPrint(r, {expanded:false});");
 		_out.println("document.getElementById('clustermonitorresult').appendChild(tbl);");
 		_out.println("</script>");
 		_done = true;
